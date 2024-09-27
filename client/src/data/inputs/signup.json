@@ -1,0 +1,27 @@
+[
+    {
+        "placeholder": "Full Name",
+        "name": "name",
+        "type": "text",
+        "id": "name"
+    },
+    {
+        "placeholder": "Mobile Number",
+        "name": "mobile",
+        "type": "number",
+        "id": "mobile"
+    },
+    {
+        "placeholder": "Email Id",
+        "name": "email",
+        "type": "email",
+        "id": "email"
+    },
+    {
+        "placeholder": "Password",
+        "name": "password",
+        "type": "password",
+        "id": "password",
+        "autoComplete": "off"
+    }
+]
