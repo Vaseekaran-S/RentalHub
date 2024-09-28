@@ -2,24 +2,25 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layout";
 
-import { verifyAdminToken } from "./api/admin";
-import { verifyUserToken } from "./api/users";
+import { verifyAdminToken } from "api/admin";
+import { verifyUserToken } from "api/users";
 
-import Home from "./pages/home";
+import Home from "pages/home";
 
-import Properties from "./pages/properties";
-import AdminLogin from "./pages/admin/login";
-import Admin from "./pages/admin";
-import AddProperty from "./pages/admin/properties/add";
-import PropertySingle from "./pages/properties/single";
-import AdminProperties from "./pages/admin/properties";
-import EditProperty from "./pages/admin/properties/edit";
-import AdminProfile from "./pages/admin/profile";
-import EditAdminProfile from "./pages/admin/profile/edit";
-import Login from "./pages/registration/login";
-import SignUp from "./pages/registration/signup";
-import PropertyAnalysis from "./pages/admin/properties/analysis";
-import ProfilePage from "./pages/profile";
+import Properties from "pages/properties";
+import AdminLogin from "pages/admin/login";
+import Admin from "pages/admin";
+import AddProperty from "pages/admin/properties/add";
+import PropertySingle from "pages/properties/single";
+import AdminProperties from "pages/admin/properties";
+import EditProperty from "pages/admin/properties/edit";
+import AdminProfile from "pages/admin/profile";
+import EditAdminProfile from "pages/admin/profile/edit";
+import Login from "pages/registration/login";
+import SignUp from "pages/registration/signup";
+import PropertyAnalysis from "pages/admin/properties/analysis";
+import ProfilePage from "pages/profile";
+import AdminSignUp from "pages/admin/signup";
 
 function App() {
 
@@ -63,8 +64,9 @@ function App() {
               <>
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/*" element={<Login />} />
+                <Route path="/admin" element={<AdminLogin setIsAdmin={setIsAdmin} />} />
                 <Route path="/admin-login" element={<AdminLogin setIsAdmin={setIsAdmin} />} />
-                <Route path="/admin-signup" element={<AdminLogin setIsAdmin={setIsAdmin} />} />
+                <Route path="/admin-signup" element={<AdminSignUp setIsAdmin={setIsAdmin} />} />
               </>
           ) :
             <>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-import PrimaryInput from '../../../components/inputs/primary'
-import PrimaryButton from '../../../components/buttons/primary'
+import PrimaryInput from 'components/inputs/primary'
+import PrimaryButton from 'components/buttons/primary'
 
-import { adminLogin } from '../../../api/admin'
+import { adminLogin } from 'api/admin'
 
 function AdminLogin({ setIsAdmin }) {
     const [credentials, setCredentials] = useState({});
@@ -33,13 +33,18 @@ function AdminLogin({ setIsAdmin }) {
     }
 
     return (
-        <div className='min-h-[90vh] py-10 flex-center'>
+        <div className='min-h-[90vh] py-10 flex-center flex-col gap-4'>
             <div className="rounded p-10 border shadow hover:shadow-lg w-full max-w-[350px] sm:w-[350px] lg:w-[350px] text-center">
                 <h5 className='text-xl font-bold'>Admin Login</h5>
                 <PrimaryInput type="text" placeholder="Enter Username" customCss="my-5" name="username" onChange={(event) => textEdit(event)} />
                 <PrimaryInput type="password" placeholder="Enter Password" customCss="mb-5" name="password" onChange={(event) => textEdit(event)}/>
                 <PrimaryButton text="Login" onClick={formSubmit}/>
             </div>
+                <div className="rounded shadow border p-5 sm:min-w-[350px] hover:shadow-lg">
+                    <h2 className='font-medium text-lg text-center'>
+                        Already Registered? <Link className='text-blue-700 hover:text-blue-800 ml-1' to="/admin">Login Here</Link>
+                    </h2>
+                </div>
         </div>
     )
 }
