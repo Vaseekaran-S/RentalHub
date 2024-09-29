@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_KEY)
 .then(()=>{
     console.log("MongoDb Connected!");
 })
-.catch((error)=>{
+.catch(error=>{
     console.log("MongoDb Not Connected! ", error.message);
 })
 
