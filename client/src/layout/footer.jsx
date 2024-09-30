@@ -12,9 +12,9 @@ const Footer = () => {
           </div>
           
           {/* Navigation Links */}
-          <div className="w-full lg:w-1/3 mb-6 lg:mb-0">
+          <div className="w-full lg:w-2/3 mb-6 lg:mb-0">
             <h2 className="text-xl font-bold">Quick Links</h2>
-            <ul className="mt-2">
+            <ul className="mt-2 flex gap-5">
               <li className="mt-2">
                 <a href="/" className="hover:underline">Home</a>
               </li>
@@ -23,21 +23,6 @@ const Footer = () => {
               </li>
               <li className="mt-2">
                 <a href="/profile" className="hover:underline">Profile</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="w-full lg:w-1/3 mb-6 lg:mb-0">
-            <h2 className="text-xl font-bold">Contact Us</h2>
-            <ul className="mt-2">
-              <li className="mt-2">
-                <a href="/admin" className="hover:underline">Admin Details</a>
-              </li>
-              <li className="mt-2">
-                <a href="tel:+919360517438" className="hover:underline">+91 93605 17438</a>
-              </li>
-              <li className="mt-2">
-                <a href="mailto:vaseekaransaminathan@gmail.com" className="hover:underline">vaseekaransaminathan@gmail.com</a>
               </li>
             </ul>
           </div>

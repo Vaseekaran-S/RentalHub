@@ -101,6 +101,11 @@ export default function RegistrationForm({ type }) {
                         {boxTitle} <Link className='text-blue-700 hover:text-blue-800 ml-1' to={bottomAction}>{bottomBtn}</Link>
                     </h2>
                 </div>
+                <div className="rounded shadow border p-5 sm:min-w-[350px] hover:shadow-lg">
+                    <h2 className='font-medium text-lg text-center'>
+                        {login ? 'Login' : 'Register'} as Admin: <Link className='text-blue-700 hover:text-blue-800 ml-1' to={`/admin-${login? 'login' : 'signup'}`}>{login? 'Login' : 'Register'}</Link>
+                    </h2>
+                </div>
             </div>
         </>
     )
