@@ -1,6 +1,21 @@
 
 import axios from "./axios"
 
+// Create admin at singup request
+export const adminSignUp = async(data) => {
+    try{
+        const responce = await axios.post("/admin/signup", {
+            email: data?.email,
+            name: data?.name,
+            mobile: data?.mobile,
+            password: data?.password,
+        })
+        return responce.data
+    }catch(err){
+        return { status: 400}
+    }
+}
+
 // Login
 const adminLogin = async (username, password) => {
     try {

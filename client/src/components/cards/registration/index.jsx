@@ -59,8 +59,8 @@ export default function RegistrationForm({ type }) {
         try {
             const responce = await action(values)
             if (responce?.status === 202) {
-                localStorage.setItem("real-estate-user", responce?.token)
-                localStorage.setItem("real-estate-user-email", responce?.email)
+                localStorage.setItem("rentalhub-user", responce?.token)
+                localStorage.setItem("rentalhub-user-email", responce?.email)
                 window.location.href = "/"
             }
             alert(responce?.msg)

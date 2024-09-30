@@ -8,6 +8,7 @@ import PrimaryBtn from 'components/buttons/primary'
 import Loader from 'components/loading';
 
 import adminFieldsData from 'data/inputs/adminSignup'
+import { adminSignUp } from 'api/admin';
 
 
 export default function AdminSignUp({ type }) {
@@ -31,13 +32,13 @@ export default function AdminSignUp({ type }) {
     const onSubmitForm = async (values) => {
         setIsLoaderOn(true)
         try {
-            // const responce = await action(values)
-            // if (responce?.status === 202) {
-            //     localStorage.setItem("real-estate-user", responce?.token)
-            //     localStorage.setItem("real-estate-user-email", responce?.email)
-            //     window.location.href = "/"
-            // }
-            // alert(responce?.msg)
+            const responce = await adminSignUp(values)
+            if (responce?.status === 202) {
+                localStorage.setItem("rentalhub-admin", responce?.token)
+                localStorage.setItem("rentalhub-admin-email", responce?.email)
+                window.location.href = "/"
+            }
+            alert(responce?.msg)
         } catch (err) {
             console.log(err);
             alert(err?.message)

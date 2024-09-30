@@ -28,8 +28,8 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("admin-token")
-    const userToken = localStorage.getItem("real-estate-user")
+    const token = localStorage.getItem("rentalhub-admin")
+    const userToken = localStorage.getItem("rentalhub-user")
     if (token) {
       const checkToken = async () => {
         const verifyToken = await verifyAdminToken(token)

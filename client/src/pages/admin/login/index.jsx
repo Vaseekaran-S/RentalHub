@@ -26,7 +26,7 @@ function AdminLogin({ setIsAdmin }) {
         const { token } = await adminLogin(username, password);
         if(token){
             setIsAdmin(true)
-            localStorage.setItem("admin-token", token)
+            localStorage.setItem("rentalhub-admin", token)
             navigator("/")
         }
         button.disabled = false;
