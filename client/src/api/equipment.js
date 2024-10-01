@@ -17,10 +17,10 @@ const imageUpload = async (file, imagePath) =>{
     }
 
     
-// Create a Property
-const createProperty = async(data) => {
+// Create a Equipment
+const createEquipment = async(data) => {
     try{ 
-        const response = await axios.post("/property", { ...data })
+        const response = await axios.post("/equipment", { ...data })
         console.log(response);
         return response?.data;
     }catch(err){
@@ -29,10 +29,10 @@ const createProperty = async(data) => {
     }
 }
 
-// Get a Properties
-const getProperties = async() => {
+// Get a Equipments
+const getEquipments = async() => {
     try{
-        const response = await axios.get("/property")
+        const response = await axios.get("/equipment")
         console.log(response);
         if(response?.data?.error) return []
         return response?.data
@@ -42,10 +42,10 @@ const getProperties = async() => {
     }
 }
 
-// Get a Property
-const getProperty = async(url) => {
+// Get a Equipment
+const getEquipment = async(url) => {
     try{
-        const response = await axios.get(`/property/${url}`)
+        const response = await axios.get(`/equipment/${url}`)
         return response?.data
     }catch(err){
         console.log(err);
@@ -54,10 +54,10 @@ const getProperty = async(url) => {
 }
 
 
-// Get a Property By Url For Client
-const getPropertyByUrl = async(url, token) => {
+// Get a Equipment By Url For Client
+const getEquipmentByUrl = async(url, token) => {
     try{
-        const response = await axios.get(`/property/url/${url}`)
+        const response = await axios.get(`/equipment/url/${url}`)
         console.log(response);
         return response?.data
     }catch(err){
@@ -66,20 +66,20 @@ const getPropertyByUrl = async(url, token) => {
     }
 }
 
-// Update a Property
-const updateProperty = async(data) => {
+// Update a Equipment
+const updateEquipment = async(data) => {
     try{
-        const response = await axios.put(`/property/${data?._id}`, { ...data })
+        const response = await axios.put(`/equipment/${data?._id}`, { ...data })
         return response?.data
     }catch(err){
         return "Network Error"
     }
 }
 
-// Delete a Property
-const deleteProperty = async(_id) => {
+// Delete a Equipment
+const deleteEquipment = async(_id) => {
     try{
-        const response = await axios.delete(`/property/${_id}`)
+        const response = await axios.delete(`/equipment/${_id}`)
         return response?.data
     }catch(err){
         return "Network Error"
@@ -88,10 +88,10 @@ const deleteProperty = async(_id) => {
 
 export {
     imageUpload,
-    createProperty,
-    getProperty,
-    getPropertyByUrl,
-    getProperties,
-    updateProperty,
-    deleteProperty
+    createEquipment,
+    getEquipment,
+    getEquipmentByUrl,
+    getEquipments,
+    updateEquipment,
+    deleteEquipment
 }
