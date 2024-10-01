@@ -33,18 +33,18 @@ export const logIn = async(data) => {
 
 
 // Vadilate user token
-export const verifyUserToken = async() => {
+export const verifyUserToken = async(token) => {
     try{
-        const token = localStorage.getItem("real-estate-user")
         if(!token){
             return false
         }
-        const response = await axios.get("/users/token", {
+        const { data } = await axios.get("/users/token", {
             headers: {
                 Authorization: token
             }
         })
-        const status = (response?.data?.status === 202)? response?.data : false
+        
+        const status = (data?.status === 202) ? data : false
         return status
     }catch(error){
         return false

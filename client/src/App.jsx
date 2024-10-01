@@ -33,13 +33,12 @@ function App() {
     if (token) {
       const checkToken = async () => {
         const verifyToken = await verifyAdminToken(token)
-        console.log(verifyToken);
         setIsAdmin(verifyToken)
       }
       checkToken()
     }else if(userToken){
       const checkToken = async () => {
-        const verifyToken = await verifyUserToken(token)
+        const verifyToken = await verifyUserToken(userToken)
         setIsAuthenticated(verifyToken)
       }
       checkToken()
