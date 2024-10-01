@@ -9,7 +9,6 @@ function ProfilePage() {
     const fetchData = async () => {
       const email = localStorage.getItem("rentalhub-user-email")
       const data = await getUser(email);
-      console.log(data);
       setProfileData(data || {});
     }
     fetchData()
@@ -17,6 +16,7 @@ function ProfilePage() {
 
   const logOut = () => {
     localStorage.removeItem("rentalhub-user")
+    localStorage.removeItem("rentalhub-user-email")
     window.location.href = "/"
   }
 

@@ -82,7 +82,7 @@ const verifyUser = async (req, res) => {
         }
 
     } catch (err) {
-        throw err
+        res.json({ type: "error", msg: err?.message, status: 406 })
     }
 }
 
