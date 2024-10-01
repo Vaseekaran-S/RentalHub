@@ -7,7 +7,7 @@ function ProfilePage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const email = localStorage.getItem("real-estate-user-email")
+      const email = localStorage.getItem("rentalhub-user-email")
       const data = await getUser(email);
       console.log(data);
       setProfileData(data || {});
