@@ -3,7 +3,7 @@ const { adminLogin, verifyAdminToken, getAdminProfile, createAdmin, updateAdmin,
 
 router.get("/:adminEmail", getAdminProfile)
 router.post("/", createAdmin)
-router.put("/:adminId", updateAdmin)
+router.put("/:adminEmail", updateAdmin)
 router.post("/login", adminLogin)
 router.post("/signup", createNewAdmin)
 

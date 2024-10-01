@@ -117,9 +117,9 @@ const createAdmin = async (req, res) => {
 // Update a Admin
 const updateAdmin = async (req, res) => {
     try {
-        const { adminId } = req.params;
-        if (!adminId) return res.json({ msg: "User Id not Found in params!", status: 400 })
-        const data = await AdminModel.updateOne({ _id: adminId, isDeleted: false }, { $set: req.body })
+        const { adminEmail } = req.params;
+        if (!adminEmail) return res.json({ msg: "User Id not Found in params!", status: 400 })
+        const data = await AdminModel.updateOne({ email: adminEmail, isDeleted: false }, { $set: req.body })
         res.json({ msg: "Admin Updated!", data, status: 200 })
     } catch (err) {
         console.log(err?.message);

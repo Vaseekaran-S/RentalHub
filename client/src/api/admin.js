@@ -54,7 +54,8 @@ const getAdminProfileData = async () => {
 // Update Admin Data
 const updateAdminData = async (newdata) => {
     try {
-        const response = await axios.put("/admin/66a741dd6e32f53636dd5dec", { ...newdata })
+        const adminEmail = localStorage.getItem("rentalhub-admin-email")
+        const response = await axios.put(`/admin/${adminEmail}`, { ...newdata })
         const { data } = response
         return (data?.status === 200)? data : {}
     } catch (err) {
