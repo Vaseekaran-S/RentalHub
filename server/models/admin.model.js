@@ -1,20 +1,12 @@
 
 const mongoose = require("mongoose")
 
-const adminSchema = mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
     },
-    image: {
-        type: String,
-        require: true
-    },
-    location: {
-        type: String,
-        require: true
-    },
-    description: {
+    password: {
         type: String,
         require: true
     },
@@ -26,7 +18,19 @@ const adminSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    image: {
+        type: String,
+        require: true
+    },
     role: {
+        type: String,
+        require: true
+    },
+    location: {
+        type: String,
+        require: true
+    },
+    description: {
         type: String,
         require: true
     },
@@ -39,6 +43,6 @@ const adminSchema = mongoose.Schema({
     timestamps: true
 })
 
-const AdminModel = mongoose.model("admin", adminSchema)
+const AdminModel = mongoose.model("admin", adminSchema);
 
 module.exports = AdminModel

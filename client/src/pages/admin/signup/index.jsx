@@ -11,7 +11,7 @@ import adminFieldsData from 'data/inputs/adminSignup'
 import { adminSignUp } from 'api/admin';
 
 
-export default function AdminSignUp({ type }) {
+export default function AdminSignUp() {
 
     const validationSchema = Yup.object({
         name: Yup.string().required('Name is required *'),
