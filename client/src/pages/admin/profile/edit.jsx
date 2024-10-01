@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import * as YUP from 'yup';
 
-import { imageUpload } from '../../../api/property';
+import { imageUpload } from '../../../api/equipment';
 import { getAdminProfileData, updateAdminData } from '../../../api/admin';
 
 import LoadingDiv from '../../../components/loading';

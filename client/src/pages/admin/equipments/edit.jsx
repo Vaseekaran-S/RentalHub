@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as YUP from 'yup';
 
-import { updateProperty, getProperty, imageUpload } from '../../../api/property';
+import { updateEquipment, getEquipment, imageUpload } from '../../../api/equipment';
 
 import LoadingDiv from '../../../components/loading';
 import PropertiesFormik from '../../../components/admin/property/fields';
@@ -15,7 +15,7 @@ function EditProperty() {
     const [isDataFetched, setIsDataFetched] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     
-    const [property, setProperty] = useState({
+    const [equipment, setEquipment] = useState({
         name: "",
         location: "",
         description: "",
@@ -25,17 +25,17 @@ function EditProperty() {
     });
 
     useEffect(() => {
-        const fetchProperty = async () => {
-            const propertiesData = await getProperty(url);
-            setProperty(propertiesData);
+        const fetchEquipment = async () => {
+            const equipmentData = await getEquipment(url);
+            setEquipment(equipmentData);
             setIsDataFetched(true)
             setIsLoading(false)
         }
-        fetchProperty()
+        fetchEquipment()
     }, [url])
 
     const validationSchema = YUP.object({
-        ...Object.fromEntries(Object.entries(property).map(element => [element?.[0], YUP.string().required("This Field is required")])),
+        ...Object.fromEntries(Object.entries(equipment).map(element => [element?.[0], YUP.string().required("This Field is required")])),
         amenities: YUP.array().of(YUP.string().required("This Field is required"))
     })
 
@@ -55,13 +55,13 @@ function EditProperty() {
             const { image } = await imageUpload(imageFile, url)
             imageUrl = image;
         }
-        const response = await updateProperty({ ...data, url, image: imageUrl })
+        const response = await updateEquipment({ ...data, url, image: imageUrl })
         setIsLoading(false)
         if (response?.status === 200) {
-            alert("Property Updated!")
+            alert("Equipment Updated!")
             navigator("/")
         } else {
-            alert("Property Not Updated! Retry")
+            alert("Equipment Not Updated! Retry")
         }
     }
 
@@ -71,7 +71,7 @@ function EditProperty() {
             <h2 className='text-xl font-bold'><Link to="/">Admin</Link> / Edit Property</h2>
             {isDataFetched &&
                 <div className='card mt-5 p-20'>
-                    <PropertiesFormik initialValues={property} isEditPage={true} validationSchema={validationSchema} selectImage={selectImage} formSubmit={formSubmit} />
+                    <PropertiesFormik initialValues={equipment} isEditPage={true} validationSchema={validationSchema} selectImage={selectImage} formSubmit={formSubmit} />
                 </div>
             }
         </div>

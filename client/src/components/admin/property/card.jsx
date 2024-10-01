@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 import PrimaryLink from '../../links/primary'
 import { useNavigate } from 'react-router-dom'
 
-import { deleteProperty } from '../../../api/property'
+import { deleteEquipment } from '../../../api/equipment'
 
-function AdminPropertyCard({ name, price, image, url, _id }) {
+function AdminEquipmentCard({ name, price, image, url, _id }) {
   const navigate = useNavigate();
 
   const deleteProp = async () => {
     if (window.confirm(`Really want to delete ${name}!`)) {
-      const response = await deleteProperty(_id)
+      const response = await deleteEquipment(_id)
       alert(response?.msg)
       navigate(0)
     }
@@ -26,14 +26,14 @@ function AdminPropertyCard({ name, price, image, url, _id }) {
         <h3 className='font-bold mt-2 mb-1 text-xl'>
           <Link to={url}>{name}</Link>
         </h3>
-        <Link to={`/properties/${_id}/analysis`} className='underline'>View Actions</Link>
+        <Link to={`/equipments/${_id}/analysis`} className='underline'>View Actions</Link>
       </div>
       <div className='flex justify-between mt-4'>
-        <PrimaryLink text="Edit" link={`/properties/edit/${_id}`} customCss="bg-blue-800" />
+        <PrimaryLink text="Edit" link={`/equipments/edit/${_id}`} customCss="bg-blue-800" />
         <button className='px-2 py-1 rounded bg-red-800 text-white font-medium' onClick={deleteProp}>Delete</button>
       </div>
     </div>
   )
 }
 
-export default AdminPropertyCard
+export default AdminEquipmentCard

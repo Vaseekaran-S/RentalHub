@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { getProperties } from '../../../api/property';
+import { getEquipments } from '../../../api/equipment';
 import AdminPropertyCard from '../../../components/admin/property/card';
 import PrimaryLink from '../../../components/links/primary';
 
-function AdminProperties() {
-    const [properties, setProperties] = useState([]);
+function AdminEquipments() {
+    const [equipments, setEquipments] = useState([]);
 
     useEffect(() => {
-        const fetchProperties = async () => {
-            const propertiesData = await getProperties();
-            setProperties(propertiesData || []);
+        const fetchEquipment = async () => {
+            const equipmentsData = await getEquipments();
+            setEquipments(equipmentsData || []);
         }
-        fetchProperties()
+        fetchEquipment()
     }, [])
 
     return (
@@ -22,16 +22,16 @@ function AdminProperties() {
             </div>
             <div className='p-5'>
                 <div className="grid grid-cols-12 gap-4">
-                    {properties.map(property => [
-                        <div key={property?.url} className='col-span-12 sm:col-span-6 lg:col-span-4'>
-                            <AdminPropertyCard {...property} />
+                    {equipments.map(equipment => [
+                        <div key={equipment?.url} className='col-span-12 sm:col-span-6 lg:col-span-4'>
+                            <AdminPropertyCard {...equipment} />
                         </div>
                     ])}
                 </div>
-                <p className={`w-full font-bold ${properties.length && 'hidden'}`}>No Property Listed</p>
+                <p className={`w-full font-bold ${equipments.length && 'hidden'}`}>No Property Listed</p>
             </div>
         </div>
     )
 }
 
-export default AdminProperties
+export default AdminEquipments

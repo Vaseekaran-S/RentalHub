@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProperty } from '../../../api/property';
+import { getEquipment } from '../../../api/equipment';
 import LoadingDiv from '../../../components/loading';
 import Card from '../../../components/cards/index';
 import PrimaryTable from '../../../components/table/primary';
 import axios from '../../../api/axios';
 import Modal from '../../../components/modals/primary';
 
-function PropertyAnalysis() {
+function EquipmentAnalysis() {
   const { url } = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [property, setProperty] = useState({
+  const [equipment, setEquipment] = useState({
     name: "",
     location: "",
     description: "",
@@ -18,18 +18,18 @@ function PropertyAnalysis() {
     type: "",
     amenities: []
   });
+
   const [appointments, setAppointments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState({});
 
   useEffect(() => {
-    const fetchProperty = async () => {
-      const propertyData = await getProperty(url);
-      console.log(propertyData);
-      setProperty(propertyData);
+    const fetchEquipment = async () => {
+      const equipmentData = await getEquipment(url);
+      setEquipment(equipmentData);
       setIsLoading(false);
     };
-    fetchProperty();
+    fetchEquipment();
   }, [url]);
 
   useEffect(() => {
@@ -46,7 +46,6 @@ function PropertyAnalysis() {
   }, [url]);
 
   const openModal = (appointment) => {
-    console.log(appointment);
     setSelectedAppointment(appointment);
     setIsModalOpen(true);
   };
@@ -88,17 +87,17 @@ function PropertyAnalysis() {
         <div className="p-10">
           <div className="text-center">
             <h1 className="text-[30px] text-center font-bold">
-              {property?.name} @ {property?.location}
+              {equipment?.name} @ {equipment?.location}
             </h1>
             <h6 className="font-bold text-xl text-gray-500 capitalize mb-8">
-              {property?.type}
+              {equipment?.type}
             </h6>
             <div className="grid grid-cols-12 gap-10 max-w-[900px] mx-auto">
               <div className="col-span-6">
                 <div className="flex-center flex-col">
                   <img
-                    src={property?.image}
-                    alt={property?.name}
+                    src={equipment?.image}
+                    alt={equipment?.name}
                     className="max-w-[900px] max-h-[500px] w-full object-cover rounded"
                   />
                 </div>
@@ -107,11 +106,11 @@ function PropertyAnalysis() {
                 <Card customCss="flex-center flex-col shadow-lg py-10">
                   <h2 className='text-xl font-bold'>Properties Details</h2>
                   <div className='text-start mt-4'>
-                    <p className='text-lg text-gray-600'><span className='font-bold'>Name</span>: {property?.name}</p>
-                    <p className='text-lg text-gray-600'><span className='font-bold'>Type</span>: {property?.type}</p>
-                    <p className='text-lg text-gray-600'><span className='font-bold'>Location</span>: {property?.location}</p>
-                    <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{property?.price}</p>
-                    <p className='text-lg text-gray-600'><span className='font-bold'>Impressions</span>: {property?.impressions}</p>
+                    <p className='text-lg text-gray-600'><span className='font-bold'>Name</span>: {equipment?.name}</p>
+                    <p className='text-lg text-gray-600'><span className='font-bold'>Type</span>: {equipment?.type}</p>
+                    <p className='text-lg text-gray-600'><span className='font-bold'>Location</span>: {equipment?.location}</p>
+                    <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{equipment?.price}</p>
+                    <p className='text-lg text-gray-600'><span className='font-bold'>Impressions</span>: {equipment?.impressions}</p>
                     <p className='text-lg text-gray-600'><span className='font-bold'>Schedules</span>: {appointments?.length || 0}</p>
                   </div>
                 </Card>
@@ -164,4 +163,4 @@ function PropertyAnalysis() {
   );
 }
 
-export default PropertyAnalysis;
+export default EquipmentAnalysis;

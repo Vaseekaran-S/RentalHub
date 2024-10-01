@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import * as YUP from 'yup';
 
-import { createProperty, imageUpload } from '../../../api/property';
+import { createEquipment, imageUpload } from '../../../api/equipment';
 import PropertiesFormik from "../../../components/admin/property/fields"
 import LoadingDiv from '../../../components/loading';
 
-function AddProperty() {
+function AddEquipment() {
     const navigator = useNavigate();
     const [imageFile, setIamageFile ] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -37,20 +37,20 @@ function AddProperty() {
         setIsLoading(true)
         const url = data?.name.replaceAll("-", " ").trim().toLowerCase().replaceAll(" ", "-");
         const { image } = await imageUpload(imageFile, url)
-        const response = await createProperty({ ...data, url, image  })
+        const response = await createEquipment({ ...data, url, image  })
         setIsLoading(false)
         if(response?.status === 200){
-            alert("Property Created!")
+            alert("Equipment Created!")
             navigator("/")
         }else{
-            alert("Property Not Created! Retry")
+            alert("Equipment Not Created! Retry")
         }
     }
 
     return (
         <div className='py-10 px-5'>
             {isLoading && <LoadingDiv />}
-            <h2 className='text-xl font-bold'><Link to="/">Admin</Link> / Add Property</h2>
+            <h2 className='text-xl font-bold'><Link to="/">Admin</Link> / Add Equipment</h2>
             <div className='card mt-5 p-20'>
                 <PropertiesFormik initialValues={initialValues} isEditPage={false} validationSchema={validationSchema} selectImage={selectImage} formSubmit={formSubmit}/>
             </div>
@@ -58,4 +58,4 @@ function AddProperty() {
     )
 }
 
-export default AddProperty
+export default AddEquipment
