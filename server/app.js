@@ -34,7 +34,7 @@ app.use("/api/upload", uploadRouter)
 const adminRouter = require("./routes/admin.routes")
 app.use("/api/admin", adminRouter)
 
-const propertyRouter = require("./routes/property.routes")
-app.use("/api/property", propertyRouter)
+const equipmentRouter = require("./routes/equipment.routes")
+app.use("/api/equipment", equipmentRouter)
 
 module.exports = app
