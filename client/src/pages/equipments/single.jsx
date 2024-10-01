@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getPropertyByUrl } from '../../api/property';
+import { getEquipmentByUrl } from '../../api/equipment';
 import LoadingDiv from '../../components/loading';
 import { Link, useParams } from 'react-router-dom';
 import PrimaryCard from '../../components/cards';
@@ -9,10 +9,10 @@ import PrimaryBtn from '../../components/buttons/primary';
 import axios from '../../api/axios';
 import { getScheduleDataForClient } from '../../api/schedule';
 
-function PropertySingle() {
+function EquipmentSingle() {
   const { url } = useParams();
 
-  const [property, setProperty] = useState({});
+  const [equipment, setEquipment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isDataFetched, setIsDataFetched] = useState(false);
 
@@ -22,10 +22,9 @@ function PropertySingle() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/schedule', { propertyId: property?._id, userEmail, scheduledDate });
+      const response = await axios.post('/schedule', { equipmentId: equipment?._id, userEmail, scheduledDate });
       setIsLoading(true)
       setScheduledDate(response || {})
-      console.log('Appointment scheduled:', response.data);
     } catch (error) {
       console.error('Error scheduling appointment:', error);
     }
@@ -36,12 +35,12 @@ function PropertySingle() {
     let isMounted = true;
     const fetchData = async () => {
       try {
-        const email = localStorage.getItem("real-estate-user-email")
-        const token = localStorage.getItem('real-estate-user');
-        const data = await getPropertyByUrl(url, token);
+        const email = localStorage.getItem("rentalhub-user-email")
+        const token = localStorage.getItem('rentalhub-user');
+        const data = await getEquipmentByUrl(url, token);
         const scheduleData = await getScheduleDataForClient(email, data?._id);
         if (isMounted) {
-          setProperty(data || {});
+          setEquipment(data || {});
           setScheduledDate(scheduleData || {})
           setIsDataFetched(true);
         }
@@ -64,38 +63,38 @@ function PropertySingle() {
     <div>
       {isLoading && <LoadingDiv />}
       <h2 className="text-lg font-bold py-5">
-        <Link to="/">Home</Link> / <Link to="/properties">Properties</Link> /{' '}
-        <span className="text-green-800 underline">{property?.name}</span>
+        <Link to="/">Home</Link> / <Link to="/equipments">Equipments</Link> /{' '}
+        <span className="text-green-800 underline">{equipment?.name}</span>
       </h2>
       {isDataFetched && (
         <div className="container mx-auto p-10">
           <div className="text-center max-w-[900px] mx-auto">
             <h1 className="text-[30px] text-center font-bold">
-              {property?.name} @ {property?.location}
+              {equipment?.name} @ {equipment?.location}
             </h1>
             <h6 className="font-bold text-xl text-gray-500 capitalize">
-              {property?.type}
+              {equipment?.type}
             </h6>
             <div className="flex-center flex-col py-5">
               <img
-                src={property?.image}
-                alt={property?.name}
+                src={equipment?.image}
+                alt={equipment?.name}
                 className="w-full max-h-[500px] w-full object-cover rounded"
               />
-              <p className="my-4 max-w-[700px]">{property?.description}</p>
+              <p className="my-4 max-w-[700px]">{equipment?.description}</p>
               <div className='py-5'>
                 <h2 className='text-xl font-bold'>Properties Details</h2>
                 <div className='text-start mt-2'>
-                  <p className='text-lg text-gray-600'><span className='font-bold'>Name</span>: {property?.name}</p>
-                  <p className='text-lg text-gray-600'><span className='font-bold'>Type</span>: {property?.type}</p>
-                  <p className='text-lg text-gray-600'><span className='font-bold'>Location</span>: {property?.location}</p>
-                  <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{property?.price}</p>
+                  <p className='text-lg text-gray-600'><span className='font-bold'>Name</span>: {equipment?.name}</p>
+                  <p className='text-lg text-gray-600'><span className='font-bold'>Type</span>: {equipment?.type}</p>
+                  <p className='text-lg text-gray-600'><span className='font-bold'>Location</span>: {equipment?.location}</p>
+                  <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{equipment?.price}</p>
                 </div>
               </div>
               <div className='w-full max-w-[700px] py-10'>
                 <h2 className='text-xl font-bold mb-5'>Amenities</h2>
                 <div className="grid grid-cols-12 gap-5">
-                  {property?.amenities.map(amenity => [
+                  {equipment?.amenities.map(amenity => [
                     <div className="col-span-4" key={amenity}>
                       <div className="border px-3 py-2 font-bold text-green-900 rounded hover:bg-gray-100">
                         {amenity}
@@ -108,7 +107,7 @@ function PropertySingle() {
             <div className="grid grid:grid-logs-6 md:grid-cols-12 gap-5">
               <div className="col-span-6">
                 <div className='rounded border shadow'>
-                  <iframe title='Map' src={property?.map} className='h-[300px] w-full'></iframe>
+                  <iframe title='Map' src={equipment?.map} className='h-[300px] w-full'></iframe>
                   <h6 className='text-lg font-bold my-3'>Propety Map</h6>
                 </div>
               </div>
@@ -117,7 +116,7 @@ function PropertySingle() {
                   {scheduledDate?.status ?
                     <div>
                       <h3 className='text-lg font-bold mb-5'>Appointment Status</h3>
-                      <p className='mb-2'>Current Status: <span className={`px-2 ml-2 capitalize font-medium py-1 bg-orange-400 rounded ${scheduledDate?.status=='confirmed' && 'bg-green-500'} ${scheduledDate?.status=='cancelled' && 'bg-red-500'}`}>{scheduledDate?.status}</span> </p>
+                      <p className='mb-2'>Current Status: <span className={`px-2 ml-2 capitalize font-medium py-1 bg-orange-400 rounded ${scheduledDate?.status==='confirmed' && 'bg-green-500'} ${scheduledDate?.status==='cancelled' && 'bg-red-500'}`}>{scheduledDate?.status}</span> </p>
                       <p className='mb-2'>Date: {scheduledDate?.scheduledDate?.split("T")[0]}</p>
                       <p>Time: {scheduledDate?.scheduledDate?.split("T")[1].replace(".000Z", "")}</p>
                     </div>
@@ -139,4 +138,4 @@ function PropertySingle() {
   );
 }
 
-export default PropertySingle;
+export default EquipmentSingle;

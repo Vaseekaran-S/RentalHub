@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { getProperties } from '../../api/property'
+import { getEquipments } from '../../api/equipment'
 import PropertyCard from '../../components/cards/property';
 
 import PrimaryInputSelect from '../../components/filters/select'
 import PrimaryCard from '../../components/cards';
 import PriceRangeFilter from '../../components/filters/price';
 
-const propertiesTypes = [
+const equipmentsTypes = [
   {
     label: "Farmlands",
     value: "farmlands"
@@ -25,7 +25,7 @@ const propertiesTypes = [
   }
 ]
 
-const propertiesLocations = [
+const equipmentsLocations = [
   {
     label: "Chennai",
     value: "Chennai"
@@ -48,34 +48,33 @@ const propertiesLocations = [
   }
 ]
 
-const filterProperties = (properties, filters) => {
-  console.log(properties);
-  return properties.filter(property => {
+const filterEquipments = (equipments, filters) => {
+  return equipments.filter(equipment => {
     let matches = true;
 
-    const propertyName = property?.name?.toLowerCase()
+    const equipmentName = equipment?.name?.toLowerCase()
     const filterName = filters?.name?.toLowerCase()
 
-    if (filters.name && propertyName.indexOf(filterName) === -1) return false;
-    if (filters.type && filters.type !== property.type) return false;
-    if (filters.location && property.location !== filters.location) matches = false;
-    if (filters.minPrice && property.price < filters.minPrice) matches = false;
-    if (filters.maxPrice && property.price > filters.maxPrice) matches = false;
+    if (filters.name && equipmentName.indexOf(filterName) === -1) return false;
+    if (filters.type && filters.type !== equipment.type) return false;
+    if (filters.location && equipment.location !== filters.location) matches = false;
+    if (filters.minPrice && equipment.price < filters.minPrice) matches = false;
+    if (filters.maxPrice && equipment.price > filters.maxPrice) matches = false;
 
     return matches
   })
 }
 
-function Properties() {
-  const [properties, setProperties] = useState([]);
+function Equipments() {
+  const [equipments, setEquipments] = useState([]);
   const [isFilterCleared, setIsFilterCleared] = useState(false);
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      const propertiesData = await getProperties();
-      setProperties(propertiesData || []);
+    const fetchEquipment = async () => {
+      const equipmentsData = await getEquipments();
+      setEquipments(equipmentsData || []);
     }
-    fetchProperties()
+    fetchEquipment()
   }, [])
 
   const [filters, setFilters] = useState({
@@ -98,9 +97,9 @@ function Properties() {
     });
   };
 
-  const filteredProperties = filterProperties(properties, filters)
+  const filteredEquipments = filterEquipments(equipments, filters)
 
-  const searchProperties = (event) => {
+  const searchEquipments = (event) => {
     event.preventDefault()
     setFilters({ ...filters, name: event.target.value });
   }
@@ -119,20 +118,20 @@ function Properties() {
   return (
     <div className='p-5'>
       <div className='flex justify-between items-center'>
-        <h2 className='text-[25px] font-bold w-full py-4'>Our Properties</h2>
+        <h2 className='text-[25px] font-bold w-full py-4'>Equipments</h2>
         <div className='w-full'>
-          <input type="text" placeholder='Search' className='border border-[2px] font-medium rounded target:border-[3px] w-full px-2 py-2' onChange={searchProperties} />
+          <input type="text" placeholder='Search' className='border border-[2px] font-medium rounded target:border-[3px] w-full px-2 py-2' onChange={searchEquipments} />
         </div>
       </div>
       <div className='grid grid-cols-12 gap-5 py-5'>
         <div className='col-span-12 md:col-span-3'>
           <div className=' h-auto'>
-            <h3 className='text-lg font-bold'>Filter Properties:</h3>
+            <h3 className='text-lg font-bold'>Filter Equipments:</h3>
             <PrimaryCard customCss="mt-4 bg-gray-200">
-              <PrimaryInputSelect label="By Type" name="type" options={propertiesTypes} value={filters?.type} onChange={handleFilterChange} />
+              <PrimaryInputSelect label="By Type" name="type" options={equipmentsTypes} value={filters?.type} onChange={handleFilterChange} />
             </PrimaryCard>
             <PrimaryCard customCss="mt-4 bg-gray-200">
-              <PrimaryInputSelect label="By Location" name="location" value={filters?.location} options={propertiesLocations} onChange={handleFilterChange} />
+              <PrimaryInputSelect label="By Location" name="location" value={filters?.location} options={equipmentsLocations} onChange={handleFilterChange} />
             </PrimaryCard>
             <PrimaryCard customCss="mt-4 bg-gray-200">
               <PriceRangeFilter minPrice={200000} maxPrice={15000000} onFilterChange={handlePriceFilterChange} isFilterCleared={isFilterCleared}/>
@@ -141,14 +140,14 @@ function Properties() {
         </div>
         <div className='col-span-12 md:col-span-9 border p-5 rounded'>
           <div className="grid grid-cols-12 gap-4">
-            {filteredProperties.map(property => [
-              <div key={property?.url} className='col-span-12 sm:col-span-6 lg:col-span-4'>
-                <PropertyCard {...property} link={property?.url} />
+            {filteredEquipments.map(equipment => [
+              <div key={equipment?.url} className='col-span-12 sm:col-span-6 lg:col-span-4'>
+                <PropertyCard {...equipment} link={equipment?.url} />
               </div>
             ])}
           </div>
-          <div className={`${filteredProperties.length && 'hidden'}`}>
-            <p className={`w-full font-bold `}>No Property Found</p>
+          <div className={`${filteredEquipments.length && 'hidden'}`}>
+            <p className={`w-full font-bold `}>No Equipment Found</p>
             <button onClick={clearFilter} className='font-medium rounded px-2 py-1 bg-green-700 text-white mt-4'>Clear Filter</button>
           </div>
         </div>
@@ -157,4 +156,4 @@ function Properties() {
   )
 }
 
-export default Properties
+export default Equipments
