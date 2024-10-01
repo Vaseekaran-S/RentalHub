@@ -42,7 +42,8 @@ const verifyAdminToken = async (token) => {
 // Get Admin Data
 const getAdminProfileData = async () => {
     try {
-        const response = await axios.get("/admin/66a741dd6e32f53636dd5dec")
+        const adminEmail = localStorage.getItem("rentalhub-admin-email")
+        const response = await axios.get(`/admin/${adminEmail}`)
         const { data } = response
         return (data?.status === 200)? data?.data : {}
     } catch (err) {

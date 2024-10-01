@@ -42,7 +42,7 @@ function AdminLogin({ setIsAdmin }) {
             </div>
                 <div className="rounded shadow border p-5 sm:min-w-[350px] hover:shadow-lg">
                     <h2 className='font-medium text-lg text-center'>
-                        Not yet Registered? <Link className='text-blue-700 hover:text-blue-800 ml-1' to="/admin-signup">Login Here</Link>
+                        Not yet Registered? <Link className='text-blue-700 hover:text-blue-800 ml-1' to="/admin-signup">Register Here</Link>
                     </h2>
                 </div>
         </div>
