@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import * as YUP from 'yup';
 
 import { createEquipment, imageUpload } from '../../../api/equipment';
-import EquipmentsFormik from "../../../components/admin/property/fields"
+import EquipmentsFormik from "../../../components/admin/equipment/fields"
 import LoadingDiv from '../../../components/loading';
 
 function AddEquipment() {

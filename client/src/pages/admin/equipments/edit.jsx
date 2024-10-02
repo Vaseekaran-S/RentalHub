@@ -5,7 +5,7 @@ import * as YUP from 'yup';
 import { updateEquipment, getEquipment, imageUpload } from '../../../api/equipment';
 
 import LoadingDiv from '../../../components/loading';
-import PropertiesFormik from '../../../components/admin/property/fields';
+import PropertiesFormik from '../../../components/admin/equipment/fields';
 
 function EditProperty() {
     const { url } = useParams();

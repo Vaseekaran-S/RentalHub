@@ -24,7 +24,6 @@ function Admin() {
         <div className='col-span-12 sm:col-span-6 lg:col-span-3'>
           <Link to="/equipments">
             <div className="card bg-blue-800 text-white group">
-              <img src="/images/property.jpeg" alt="Property" className='h-full w-full rounded mb-2' />
               <h6 className='text-lg font-bold'>Equipments:</h6>
               <p>Total: {length}</p>
             </div>
@@ -32,8 +31,8 @@ function Admin() {
         </div>
         <div className="col-span-12 sm:col-span-6 lg:col-span-3">
           <Link to="/equipments/add">
-            <div className="card flex-center h-[200px] bg-gray-700 text-white group">
-              <p className='text-[20px] font-medium flex items-center gap-2'>
+            <div className="card flex-center h-full bg-gray-700 text-white group">
+              <p className='text-lg font-medium flex items-center gap-2'>
                 Add Equipment <FaPlus className='group-hover:scale-150 transition' />
               </p>
             </div>

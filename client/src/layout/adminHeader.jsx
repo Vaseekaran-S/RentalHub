@@ -7,8 +7,8 @@ const navLinks = [
     link: "/"
   },
   {
-    name: "Properties",
-    link: "/properties"
+    name: "Equipments",
+    link: "/equipments"
   },
   {
     name: "Profile",
