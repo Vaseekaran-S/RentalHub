@@ -7,20 +7,23 @@ import { verifyUserToken } from "api/users";
 
 import Home from "pages/home";
 
-import Equipments from "pages/equipments";
-import AdminLogin from "pages/admin/login";
 import Admin from "pages/admin";
-import AddProperty from "pages/admin/equipments/add";
+import AdminSignUp from "pages/admin/signup";
+import AdminLogin from "pages/admin/login";
+
+import AdminEquipments from "pages/admin/equipments";
+import AddEquipment from "pages/admin/equipments/add";
+import EditEquipment from "pages/admin/equipments/edit";
 import EquipmentSingle from "pages/equipments/single";
-import AdminProperties from "pages/admin/equipments";
-import EditProperty from "pages/admin/equipments/edit";
+import EquipmentAnalysis from "pages/admin/equipments/analysis";
+
 import AdminProfile from "pages/admin/profile";
 import EditAdminProfile from "pages/admin/profile/edit";
+
 import Login from "pages/registration/login";
+import Equipments from "pages/equipments";
 import SignUp from "pages/registration/signup";
-import PropertyAnalysis from "pages/admin/equipments/analysis";
 import ProfilePage from "pages/profile";
-import AdminSignUp from "pages/admin/signup";
 
 function App() {
 
@@ -53,9 +56,9 @@ function App() {
             isAuthenticated ?
               <>
                 <Route path="/" element={<Home />} />
-                <Route path="/properties" element={<Equipments />} />
+                <Route path="/equipments" element={<Equipments />} />
                 <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/properties/:url" element={<EquipmentSingle />} />
+                <Route path="/equipments/:url" element={<EquipmentSingle />} />
                 <Route path="/admin" element={<AdminProfile setIsAdmin={false} />} />
                 <Route path="/admin-login" element={<AdminLogin setIsAdmin={setIsAdmin} />} />
               </>
@@ -70,11 +73,11 @@ function App() {
           ) :
             <>
               <Route path="/" element={<Admin />} />
-              <Route path="/properties" element={<AdminProperties />} />
-              <Route path="/properties/add" element={<AddProperty />} />
-              <Route path="/properties/edit/:url" element={<EditProperty />} />
-              <Route path="/properties/:url/analysis" element={<PropertyAnalysis />} />
-              <Route path="/properties/:url" element={<EquipmentSingle />} />
+              <Route path="/equipments" element={<AdminEquipments />} />
+              <Route path="/equipments/add" element={<AddEquipment />} />
+              <Route path="/equipments/edit/:url" element={<EditEquipment />} />
+              <Route path="/equipments/:url/analysis" element={<EquipmentAnalysis />} />
+              <Route path="/equipments/:url" element={<EquipmentSingle />} />
               <Route path="/profile" element={<AdminProfile />} />
               <Route path="/profile/edit" element={<EditAdminProfile />} />
             </>

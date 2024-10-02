@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import * as YUP from 'yup';
 
 import { createEquipment, imageUpload } from '../../../api/equipment';
-import PropertiesFormik from "../../../components/admin/property/fields"
+import EquipmentsFormik from "../../../components/admin/property/fields"
 import LoadingDiv from '../../../components/loading';
 
 function AddEquipment() {
@@ -15,14 +15,14 @@ function AddEquipment() {
         name: "",
         location: "",
         description: "",
-        price: "",
-        type: "",
-        amenities: []
+        rate: "",
+        category: "",
+        specifications: []
     }    
     
     const validationSchema = YUP.object({
             ...Object.fromEntries(Object.entries(initialValues).map(element => [element?.[0], YUP.string().required("This Field is required")])),
-            amenities: YUP.array().of( YUP.string().required("This Field is required") )
+            specifications: YUP.array().of( YUP.string().required("This Field is required") )
         })
 
     const selectImage = (event) => {
@@ -38,13 +38,13 @@ function AddEquipment() {
         const url = data?.name.replaceAll("-", " ").trim().toLowerCase().replaceAll(" ", "-");
         const { image } = await imageUpload(imageFile, url)
         const response = await createEquipment({ ...data, url, image  })
-        setIsLoading(false)
         if(response?.status === 200){
             alert("Equipment Created!")
             navigator("/")
         }else{
             alert("Equipment Not Created! Retry")
         }
+        setIsLoading(false)
     }
 
     return (
@@ -52,7 +52,7 @@ function AddEquipment() {
             {isLoading && <LoadingDiv />}
             <h2 className='text-xl font-bold'><Link to="/">Admin</Link> / Add Equipment</h2>
             <div className='card mt-5 p-20'>
-                <PropertiesFormik initialValues={initialValues} isEditPage={false} validationSchema={validationSchema} selectImage={selectImage} formSubmit={formSubmit}/>
+                <EquipmentsFormik initialValues={initialValues} isEditPage={false} validationSchema={validationSchema} selectImage={selectImage} formSubmit={formSubmit}/>
             </div>
         </div>
     )
