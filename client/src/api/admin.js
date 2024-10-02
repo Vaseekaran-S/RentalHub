@@ -1,4 +1,5 @@
 
+import { getAdminEmail } from "utils/getData"
 import axios from "./axios"
 
 // Create admin at singup request
@@ -42,7 +43,7 @@ const verifyAdminToken = async (token) => {
 // Get Admin Data
 const getAdminProfileData = async () => {
     try {
-        const adminEmail = localStorage.getItem("rentalhub-admin-email")
+        const adminEmail = getAdminEmail()
         const response = await axios.get(`/admin/${adminEmail}`)
         const { data } = response
         return (data?.status === 200)? data?.data : {}
@@ -54,7 +55,7 @@ const getAdminProfileData = async () => {
 // Update Admin Data
 const updateAdminData = async (newdata) => {
     try {
-        const adminEmail = localStorage.getItem("rentalhub-admin-email")
+        const adminEmail = getAdminEmail()
         const response = await axios.put(`/admin/${adminEmail}`, { ...newdata })
         const { data } = response
         return (data?.status === 200)? data : {}

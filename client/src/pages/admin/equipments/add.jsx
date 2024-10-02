@@ -36,7 +36,8 @@ function AddEquipment() {
     const formSubmit = async(data) => {
         setIsLoading(true)
         const url = data?.name.replaceAll("-", " ").trim().toLowerCase().replaceAll(" ", "-");
-        const { image } = await imageUpload(imageFile, url)
+
+        const { image } = imageFile? await imageUpload(imageFile, url) : "";
         const response = await createEquipment({ ...data, url, image  })
         if(response?.status === 200){
             alert("Equipment Created!")

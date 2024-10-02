@@ -8,6 +8,7 @@ import PrimaryBtn from '../../components/buttons/primary';
 
 import axios from '../../api/axios';
 import { getScheduleDataForClient } from '../../api/schedule';
+import { getUserEmail } from 'utils/getData';
 
 function EquipmentSingle() {
   const { url } = useParams();
@@ -35,7 +36,7 @@ function EquipmentSingle() {
     let isMounted = true;
     const fetchData = async () => {
       try {
-        const email = localStorage.getItem("rentalhub-user-email")
+        const email = getUserEmail();
         const token = localStorage.getItem('rentalhub-user');
         const data = await getEquipmentByUrl(url, token);
         const scheduleData = await getScheduleDataForClient(email, data?._id);

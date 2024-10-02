@@ -1,3 +1,4 @@
+import { getAdminEmail } from "utils/getData";
 import axios from "./axios";
 
 // Image Upload
@@ -19,8 +20,9 @@ const imageUpload = async (file, imagePath) =>{
     
 // Create a Equipment
 const createEquipment = async(data) => {
-    try{ 
-        const response = await axios.post("/equipment", { ...data })
+    try{
+        const adminMail = getAdminEmail();
+        const response = await axios.post("/equipment", { ...data, admin: adminMail })
         console.log(response);
         return response?.data;
     }catch(err){
@@ -32,7 +34,8 @@ const createEquipment = async(data) => {
 // Get a Equipments
 const getEquipments = async() => {
     try{
-        const response = await axios.get("/equipment")
+        const adminMail = getAdminEmail()
+        const response = await axios.get(`/equipment/${adminMail}`)
         console.log(response);
         if(response?.data?.error) return []
         return response?.data
