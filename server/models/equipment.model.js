@@ -46,7 +46,7 @@ const equipmentSchema = mongoose.Schema({
         require: true,
         default: false
     },
-    amenities: Array,
+    specifications: Array,
     impressions: {
         type: Number,
         default: 0
