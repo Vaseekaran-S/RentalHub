@@ -1,51 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { getEquipments } from '../../api/equipment'
-import PropertyCard from '../../components/cards/property';
+import EquipmentCard from '../../components/cards/property';
 
 import PrimaryInputSelect from '../../components/filters/select'
 import PrimaryCard from '../../components/cards';
 import PriceRangeFilter from '../../components/filters/price';
 
 const equipmentsTypes = [
-  {
-    label: "Farmlands",
-    value: "farmlands"
-  },
-  {
-    label: "Plots",
-    value: "plots"
-  },
-  {
-    label: "Villas",
-    value: "villas"
-  },
-  {
-    label: "Flats",
-    value: "flats"
-  }
+  { label: 'Electronics', value: 'electronics' },
+  { label: 'Vehicles', value: 'vehicles' },
+  { label: 'Construction', value: 'construction' },
+  { label: 'Medical', value: 'medical' },
+  { label: 'Sports', value: 'sports' },
+  { label: 'Home Appliances', value: 'home-appliances' },
+  { label: 'Tools', value: 'tools' },
+  { label: 'Event Equipment', value: 'event-equipment' }
 ]
 
 const equipmentsLocations = [
-  {
-    label: "Chennai",
-    value: "Chennai"
-  },
-  {
-    label: "Trichy",
-    value: "Trichy"
-  },
-  {
-    label: "Coimbatore",
-    value: "Coimbatore"
-  },
-  {
-    label: "Madurai",
-    value: "Madurai"
-  },
-  {
-    label: "Thanjavur",
-    value: "Thanjavur"
-  }
+  { label: "Chennai", value: "Chennai" },
+  { label: "Trichy", value: "Trichy" },
+  { label: "Coimbatore", value: "Coimbatore" },
+  { label: "Madurai", value: "Madurai" },
+  { label: "Thanjavur", value: "Thanjavur" }
 ]
 
 const filterEquipments = (equipments, filters) => {
@@ -56,10 +33,10 @@ const filterEquipments = (equipments, filters) => {
     const filterName = filters?.name?.toLowerCase()
 
     if (filters.name && equipmentName.indexOf(filterName) === -1) return false;
-    if (filters.type && filters.type !== equipment.type) return false;
+    if (filters.category && filters.category !== equipment.category) return false;
     if (filters.location && equipment.location !== filters.location) matches = false;
-    if (filters.minPrice && equipment.price < filters.minPrice) matches = false;
-    if (filters.maxPrice && equipment.price > filters.maxPrice) matches = false;
+    if (filters.minPrice && equipment.rate < filters.minPrice) matches = false;
+    if (filters.maxPrice && equipment.rate > filters.maxPrice) matches = false;
 
     return matches
   })
@@ -78,7 +55,7 @@ function Equipments() {
   }, [])
 
   const [filters, setFilters] = useState({
-    type: "",
+    category: "",
     location: "",
     minPrice: "",
     maxPrice: "",
@@ -106,7 +83,7 @@ function Equipments() {
 
   function clearFilter() {
     setFilters({
-      type: "",
+      category: "",
       location: "",
       minPrice: "",
       maxPrice: "",
@@ -128,13 +105,13 @@ function Equipments() {
           <div className=' h-auto'>
             <h3 className='text-lg font-bold'>Filter Equipments:</h3>
             <PrimaryCard customCss="mt-4 bg-gray-200">
-              <PrimaryInputSelect label="By Type" name="type" options={equipmentsTypes} value={filters?.type} onChange={handleFilterChange} />
+              <PrimaryInputSelect label="By Type" name="category" options={equipmentsTypes} value={filters?.category} onChange={handleFilterChange} />
             </PrimaryCard>
             <PrimaryCard customCss="mt-4 bg-gray-200">
               <PrimaryInputSelect label="By Location" name="location" value={filters?.location} options={equipmentsLocations} onChange={handleFilterChange} />
             </PrimaryCard>
             <PrimaryCard customCss="mt-4 bg-gray-200">
-              <PriceRangeFilter minPrice={200000} maxPrice={15000000} onFilterChange={handlePriceFilterChange} isFilterCleared={isFilterCleared}/>
+              <PriceRangeFilter minPrice={1} maxPrice={1000} onFilterChange={handlePriceFilterChange} isFilterCleared={isFilterCleared} />
             </PrimaryCard>
           </div>
         </div>
@@ -142,7 +119,7 @@ function Equipments() {
           <div className="grid grid-cols-12 gap-4">
             {filteredEquipments.map(equipment => [
               <div key={equipment?.url} className='col-span-12 sm:col-span-6 lg:col-span-4'>
-                <PropertyCard {...equipment} link={equipment?.url} />
+                <EquipmentCard {...equipment} link={equipment?.url} />
               </div>
             ])}
           </div>

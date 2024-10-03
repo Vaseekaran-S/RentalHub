@@ -7,7 +7,7 @@ function Home() {
       <h3 className='text-[40px] text-blue-700 font-bold'>
         Welcome to RentalHub World!
       </h3>
-      <Link to="/properties" className='px-3 py-2 rounded mt-10 border bg-green-800 text-white font-medium'>See Our Properties</Link>
+      <Link to="/equipments" className='px-3 py-2 rounded mt-10 border bg-green-800 text-white font-medium'>See Equipments</Link>
     </div>
   )
 }

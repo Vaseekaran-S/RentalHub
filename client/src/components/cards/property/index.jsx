@@ -1,22 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { IoLocationOutline } from "react-icons/io5";
-import { BsBuildingsFill } from "react-icons/bs";
+import { MdOutlineWindow } from "react-icons/md";
 
-function PropertyCard({ link, name, location, price, type, image }) {
+function EquipmentCard({ link, name, location, rate, category, image }) {
   return (
     <div className='border p-4 rounded shadow group'>
-      <Link to={`/properties/${link}`}>
+      <Link to={`/equipments/${link}`}>
         <div className='overflow-hidden rounded relative'>
-          <span className='absolute bg-green-700 px-2 py-1 rounded font-medium text-white z-50'>₹ {price}</span>
+          <span className='absolute bg-green-700 px-2 py-1 rounded font-medium text-white z-50'>₹ {rate}</span>
           <img src={image || "/images/equipment.jpg"} alt="Equipment" className='h-[200px] object-cover group-hover:scale-110 transition' />
         </div>
         <h3 className='font-bold mt-2 mb-1 text-xl'>{name}</h3>
         <p className='flex items-center font-medium gap-1'><IoLocationOutline /> { location }</p>
-        <p className='flex items-center font-medium gap-1'><BsBuildingsFill /> { type }</p>
+        <p className='flex items-center font-medium gap-1 capitalize'><MdOutlineWindow /> { category }</p>
       </Link>
     </div>
   )
 }
 
-export default PropertyCard
+export default EquipmentCard
