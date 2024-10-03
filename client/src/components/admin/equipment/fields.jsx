@@ -38,7 +38,7 @@ function EquipmentsFormik({ initialValues, validationSchema, selectImage, formSu
                             <FieldArray name="specifications">
                                 {({ push, remove }) => (
                                     <div className='card'>
-                                        {values?.specifications.map((specification, index) => (
+                                        {values?.specifications?.map((specification, index) => (
                                             <div key={index} className='mb-3'>
                                                 <div className='flex gap-4'>
                                                     <Field name={`specifications[${index}]`} placeholder="Enter Specification" className="border focus:outline-none w-full px-3 py-2 rounded" />

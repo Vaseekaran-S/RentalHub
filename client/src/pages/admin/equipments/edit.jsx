@@ -7,7 +7,7 @@ import { updateEquipment, getEquipment, imageUpload } from '../../../api/equipme
 import LoadingDiv from '../../../components/loading';
 import PropertiesFormik from '../../../components/admin/equipment/fields';
 
-function EditProperty() {
+function EditEquipment() {
     const { url } = useParams();
 
     const navigator = useNavigate();
@@ -19,9 +19,9 @@ function EditProperty() {
         name: "",
         location: "",
         description: "",
-        price: "",
-        type: "",
-        amenities: []
+        rate: "",
+        category: "",
+        specifications: []
     });
 
     useEffect(() => {
@@ -36,7 +36,7 @@ function EditProperty() {
 
     const validationSchema = YUP.object({
         ...Object.fromEntries(Object.entries(equipment).map(element => [element?.[0], YUP.string().required("This Field is required")])),
-        amenities: YUP.array().of(YUP.string().required("This Field is required"))
+        specifications: YUP.array().of(YUP.string().required("This Field is required"))
     })
 
     const selectImage = (event) => {
@@ -48,6 +48,8 @@ function EditProperty() {
     }
 
     const formSubmit = async (data) => {
+        console.log(data);
+        
         setIsLoading(true)
         const url = data?.name.replaceAll("-", " ").trim().toLowerCase().replaceAll(" ", "-");
         let imageUrl = data?.image
@@ -68,7 +70,7 @@ function EditProperty() {
     return (
         <div className='py-10 px-5'>
             {isLoading && <LoadingDiv />}
-            <h2 className='text-xl font-bold'><Link to="/">Admin</Link> / Edit Property</h2>
+            <h2 className='text-xl font-bold'><Link to="/">Admin</Link> / Edit Equipment</h2>
             {isDataFetched &&
                 <div className='card mt-5 p-20'>
                     <PropertiesFormik initialValues={equipment} isEditPage={true} validationSchema={validationSchema} selectImage={selectImage} formSubmit={formSubmit} />
@@ -78,4 +80,4 @@ function EditProperty() {
     )
 }
 
-export default EditProperty
+export default EditEquipment

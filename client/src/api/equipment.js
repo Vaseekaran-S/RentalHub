@@ -48,7 +48,7 @@ const getEquipments = async() => {
 // Get a Equipment
 const getEquipment = async(url) => {
     try{
-        const response = await axios.get(`/equipment/${url}`)
+        const response = await axios.get(`/equipment/admin/${url}`)
         return response?.data
     }catch(err){
         console.log(err);
