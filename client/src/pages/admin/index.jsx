@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaPlus } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import { getEquipments } from '../../api/equipment'
+import { getEquipmentsSize } from '../../api/equipment'
 
 function Admin() {
 
@@ -9,10 +9,8 @@ function Admin() {
 
   useEffect(()=>{
     const fetchData = async() =>{
-      const equipments = await getEquipments();
-      console.log(equipments);
-      
-      setLength(equipments?.length)
+      const equipmentsLength = await getEquipmentsSize();
+      setLength(equipmentsLength)
     }
     fetchData()
   }, [])

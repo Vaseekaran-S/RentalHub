@@ -32,13 +32,12 @@ const createEquipment = async (data) => {
 }
 
 // Get Equipments count by Admin Email
-const getEquipmentsLength = async() => {
+const getEquipmentsSize = async() => {
     try {
         const adminMail = getAdminEmail()
-        const response = await axios.get(`/equipments/${adminMail}`)
-        console.log(response);
-        if (response?.data?.error) return []
-        return response?.data
+        const { data } = await axios.get(`/equipments/${adminMail}/length`)
+        if (data?.error) return 0;
+        return data || 0;
     } catch (err) {
         console.log(err);
         return "Network Error"
@@ -108,6 +107,7 @@ export {
     createEquipment,
     getEquipmentById,
     getEquipmentByUrl,
+    getEquipmentsSize,
     getEquipments,
     updateEquipment,
     deleteEquipment
