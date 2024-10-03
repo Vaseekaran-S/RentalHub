@@ -24,6 +24,7 @@ import Login from "pages/registration/login";
 import Equipments from "pages/equipments";
 import SignUp from "pages/registration/signup";
 import ProfilePage from "pages/profile";
+import { deleteAdmin, deleteUser } from "utils/getData";
 
 function App() {
 
@@ -36,12 +37,14 @@ function App() {
     if (token) {
       const checkToken = async () => {
         const verifyToken = await verifyAdminToken(token)
+        if(!verifyToken) deleteAdmin()
         setIsAdmin(verifyToken)
       }
       checkToken()
     }else if(userToken){
       const checkToken = async () => {
         const verifyToken = await verifyUserToken(userToken)
+        if(!verifyToken) deleteUser()
         setIsAuthenticated(verifyToken)
       }
       checkToken()

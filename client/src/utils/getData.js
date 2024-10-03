@@ -1,9 +1,27 @@
 
-const getAdminEmail = () => localStorage.getItem("rentalhub-admin-email")
+const adminToken = "rentalhub-admin"
+const adminEmail = "rentalhub-admin-email"
 
-const getUserEmail = () => localStorage.getItem("rentalhub-user-email")
+const getAdminEmail = () => localStorage.getItem(adminEmail)
+const deleteAdmin = () => {
+    localStorage.removeItem(adminToken)
+    localStorage.removeItem(adminEmail)
+}
+
+
+const userToken = "rentalhub-user"
+const userEmail = "rentalhub-user-email"
+
+const getUserEmail = () => localStorage.getItem(userEmail)
+const deleteUser = () => {
+    localStorage.removeItem(userToken)
+    localStorage.removeItem(userEmail)
+}
+
 
 module.exports = {
     getAdminEmail,
-    getUserEmail
+    getUserEmail,
+    deleteAdmin,
+    deleteUser
 }

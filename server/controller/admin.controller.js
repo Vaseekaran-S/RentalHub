@@ -30,6 +30,17 @@ const hashPassword = async (password) => {
     }
 }
 
+// Verify encrypted password
+const verifyHashPassword = async (password, hashedPassword) => {
+    try {
+        const match = await bcrypt.compare(password, hashedPassword)
+        return match
+    } catch (err) {
+        throw err
+    }
+}
+
+
 // POST : Create Admin at DB with enscrypted password
 const createNewAdmin = async (req, res) => {
     const { password, mobile, name, email } = req.body

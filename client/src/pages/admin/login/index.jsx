@@ -20,13 +20,14 @@ function AdminLogin({ setIsAdmin }) {
 
     const formSubmit = async(event) => {
         const button = event.target
-        const { username, password } = credentials;
-        if(!username || !password) return alert("Enter All Details");
+        const { email, password } = credentials;
+        if(!email || !password) return alert("Enter All Details");
         button.disabled = true;
-        const { token } = await adminLogin(username, password);
+        const { token } = await adminLogin(email, password);
         if(token){
             setIsAdmin(true)
             localStorage.setItem("rentalhub-admin", token)
+            localStorage.setItem("rentalhub-admin-email", email)
             navigator("/")
         }
         button.disabled = false;
@@ -36,7 +37,7 @@ function AdminLogin({ setIsAdmin }) {
         <div className='min-h-[90vh] py-10 flex-center flex-col gap-4'>
             <div className="rounded p-10 border shadow hover:shadow-lg w-full max-w-[350px] sm:w-[350px] lg:w-[350px] text-center">
                 <h5 className='text-xl font-bold'>Admin Login</h5>
-                <PrimaryInput type="text" placeholder="Enter Username" customCss="my-5" name="username" onChange={(event) => textEdit(event)} />
+                <PrimaryInput type="text" placeholder="Enter email" customCss="my-5" name="email" onChange={(event) => textEdit(event)} />
                 <PrimaryInput type="password" placeholder="Enter Password" customCss="mb-5" name="password" onChange={(event) => textEdit(event)}/>
                 <PrimaryButton text="Login" onClick={formSubmit}/>
             </div>

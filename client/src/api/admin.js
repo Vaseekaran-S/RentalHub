@@ -18,12 +18,12 @@ export const adminSignUp = async(data) => {
 }
 
 // Login
-const adminLogin = async (username, password) => {
+const adminLogin = async (email, password) => {
     try {
-        const response = await axios.post("/admin/login", { username, password })
+        const response = await axios.post("/admin/login", { email, password })
         const { data } = response
         alert(data?.msg)
-        return (data?.status === 200)? data : {}
+        return data || {}
     } catch (err) {
         return {}
     }
