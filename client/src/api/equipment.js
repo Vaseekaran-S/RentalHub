@@ -44,7 +44,7 @@ const getEquipmentsSize = async() => {
     }
 }
 
-// Get a Equipments
+// Get all Equipments by admin mail
 const getEquipments = async () => {
     try {
         const adminMail = getAdminEmail()

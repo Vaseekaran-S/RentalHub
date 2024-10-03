@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { deleteEquipment } from '../../../api/equipment'
 
-function AdminEquipmentCard({ name, price, image, url, _id }) {
+function AdminEquipmentCard({ name, rate, image, url, _id }) {
   const navigate = useNavigate();
 
   const deleteProp = async () => {
@@ -19,8 +19,8 @@ function AdminEquipmentCard({ name, price, image, url, _id }) {
   return (
     <div className='border p-4 rounded shadow group'>
       <div className='rounded relative overflow-hidden'>
-        <span className='absolute bg-green-700 px-2 py-1 rounded font-medium text-white z-50'>₹ {price}</span>
-        <img src={image || "/images/property.jpeg"} alt="Property" className='h-[200px] w-full object-cover group-hover:scale-110 transition' />
+        <span className='absolute bg-green-700 px-2 py-1 rounded font-medium text-white z-50'>₹{rate}/hour</span>
+        <img src={image || "/images/equipment.jpg"} alt="Equipment" className='h-[200px] w-full object-cover group-hover:scale-110 transition' />
       </div>
       <div className='flex justify-between items-center'>
         <h3 className='font-bold mt-2 mb-1 text-xl'>

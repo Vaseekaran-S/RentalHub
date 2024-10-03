@@ -9,7 +9,7 @@ function PropertyCard({ link, name, location, price, type, image }) {
       <Link to={`/properties/${link}`}>
         <div className='overflow-hidden rounded relative'>
           <span className='absolute bg-green-700 px-2 py-1 rounded font-medium text-white z-50'>₹ {price}</span>
-          <img src={image || "/images/property.jpeg"} alt="Property" className='h-[200px] object-cover group-hover:scale-110 transition' />
+          <img src={image || "/images/equipment.jpg"} alt="Equipment" className='h-[200px] object-cover group-hover:scale-110 transition' />
         </div>
         <h3 className='font-bold mt-2 mb-1 text-xl'>{name}</h3>
         <p className='flex items-center font-medium gap-1'><IoLocationOutline /> { location }</p>
