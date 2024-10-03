@@ -18,7 +18,7 @@ function FormikSelect({ name, label, customCss, options, ...props }) {
             <Field as="select" id={name} name={name} {...props} className={`border mt-2 w-full px-3 py-2 rounded focus:outline-none ${customCss}`}>
                 {
                     options.map(option => [
-                        <option key={option?.value} value={option.value}>{option.label}</option>
+                        <option key={option?.value} value={option?.value}>{option?.label}</option>
                     ])
                 }
             </Field>

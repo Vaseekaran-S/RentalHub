@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as YUP from 'yup';
 
-import { updateEquipment, getEquipment, imageUpload } from '../../../api/equipment';
+import { updateEquipment, getEquipmentById, imageUpload } from '../../../api/equipment';
 
 import LoadingDiv from '../../../components/loading';
 import PropertiesFormik from '../../../components/admin/equipment/fields';
@@ -15,6 +15,15 @@ function EditEquipment() {
     const [isDataFetched, setIsDataFetched] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     
+    const initialValues = {
+        name: "",
+        location: "",
+        description: "",
+        rate: "",
+        category: "",
+        specifications: []
+    } 
+
     const [equipment, setEquipment] = useState({
         name: "",
         location: "",
@@ -26,7 +35,7 @@ function EditEquipment() {
 
     useEffect(() => {
         const fetchEquipment = async () => {
-            const equipmentData = await getEquipment(url);
+            const equipmentData = await getEquipmentById(url);
             setEquipment(equipmentData);
             setIsDataFetched(true)
             setIsLoading(false)
@@ -35,21 +44,17 @@ function EditEquipment() {
     }, [url])
 
     const validationSchema = YUP.object({
-        ...Object.fromEntries(Object.entries(equipment).map(element => [element?.[0], YUP.string().required("This Field is required")])),
+        ...Object.fromEntries(Object.entries(initialValues).map(element => [element?.[0], YUP.string().required("This Field is required")])),
         specifications: YUP.array().of(YUP.string().required("This Field is required"))
     })
 
     const selectImage = (event) => {
         event.preventDefault()
         const file = event.target.files[0];
-        if (file) {
-            setImageFile(file)
-        }
+        if (file) setImageFile(file)
     }
 
     const formSubmit = async (data) => {
-        console.log(data);
-        
         setIsLoading(true)
         const url = data?.name.replaceAll("-", " ").trim().toLowerCase().replaceAll(" ", "-");
         let imageUrl = data?.image
