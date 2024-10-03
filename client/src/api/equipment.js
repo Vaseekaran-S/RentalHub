@@ -48,10 +48,9 @@ const getEquipmentsSize = async() => {
 const getEquipments = async () => {
     try {
         const adminMail = getAdminEmail()
-        const response = await axios.get(`/equipments/${adminMail}`)
-        console.log(response);
-        if (response?.data?.error) return []
-        return response?.data
+        const { data } = await axios.get(`/equipments/${adminMail}`)
+        if (data?.error) return []
+        return data || [];
     } catch (err) {
         console.log(err);
         return "Network Error"

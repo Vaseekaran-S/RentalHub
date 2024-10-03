@@ -4,10 +4,8 @@ const EquipmentModel = require("../models/equipment.model");
 // Create a Equipment
 const createEquipment = async(req, res) => {
     try{
-        const { name, description, rate, category, location, admin } = req.body;
-        console.log(req.body);
-        
-        if(!name || !description || !rate || !category || !location || !admin){
+        const { name, rate, category, location, admin } = req.body;
+        if(!name || !rate || !category || !location || !admin){
             return res.json({ msg: "All data are Requiered" })
         }
         const response = await EquipmentModel.create({...req.body})
@@ -53,9 +51,7 @@ const getEquipmentsSizeByAdminMail = async(req, res) => {
 // Get an Admin Equipment By Dynamic Url
 const getAdminEquipmentById = async(req, res) => {
     try{
-        const data = await EquipmentModel.findOne({ _id: req.params?.url, isDeleted: false })
-        console.log(data);
-        
+        const data = await EquipmentModel.findOne({ _id: req.params?.id, isDeleted: false })
         res.json(data)
     }catch(err){
         res.json({ msg: "Server Error", error: err?.message })

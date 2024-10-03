@@ -18,7 +18,6 @@ function EditEquipment() {
     const initialValues = {
         name: "",
         location: "",
-        description: "",
         rate: "",
         category: "",
         specifications: []
