@@ -1,9 +1,11 @@
 const router = require("express").Router();
-const { createEquipment, getEquipmentByAdminMail, deleteAllEquipment, softDeleteEquipment, getEquipments, updateEquipment, getEquipmentByUrl, getAdminEquipmentByUrl } = require("../controller/equipment.controller");
+const { createEquipment, getEquipmentByAdminMail, deleteAllEquipment, softDeleteEquipment, getEquipments, updateEquipment, getEquipmentByUrl, getAdminEquipmentById, getEquipmentsSizeByAdminMail } = require("../controller/equipment.controller");
 
 router.get("/", getEquipments)
+
 router.get("/:adminMail", getEquipmentByAdminMail)
-router.get("/admin/:url", getAdminEquipmentByUrl)
+router.get("/:adminMail/length", getEquipmentsSizeByAdminMail)
+router.get("/admin/:id", getAdminEquipmentById)
 
 router.get("/url/:url", getEquipmentByUrl)
 

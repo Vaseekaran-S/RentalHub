@@ -39,8 +39,19 @@ const getEquipmentByAdminMail = async(req, res) => {
     }
 }
 
+// Get equipments size
+const getEquipmentsSizeByAdminMail = async(req, res) => {
+    try{
+        const { adminMail } = req.params;
+        const length = await EquipmentModel.countDocuments({ admin: adminMail, isDeleted: false })
+        res.json(length)
+    }catch(err){
+        res.json({ msg: "Server Error", error: err?.message })
+    }
+}
+
 // Get an Admin Equipment By Dynamic Url
-const getAdminEquipmentByUrl = async(req, res) => {
+const getAdminEquipmentById = async(req, res) => {
     try{
         const data = await EquipmentModel.findOne({ _id: req.params?.url, isDeleted: false })
         console.log(data);
@@ -97,7 +108,8 @@ const deleteAllEquipment = async(req, res) => {
 module.exports = {
     createEquipment,
     getEquipments,
-    getAdminEquipmentByUrl,
+    getEquipmentsSizeByAdminMail,
+    getAdminEquipmentById,
     getEquipmentByAdminMail,
     deleteAllEquipment,
     softDeleteEquipment,

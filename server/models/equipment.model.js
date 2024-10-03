@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 
-const equipmentSchema = mongoose.Schema({
+const equipmentSchema = new mongoose.Schema({
     url: {
         type: String,
         require: true
