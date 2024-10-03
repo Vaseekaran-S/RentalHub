@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 
-const propertySchema = mongoose.Schema({
+const equipmentSchema = mongoose.Schema({
     url: {
         type: String,
         require: true
@@ -55,6 +55,6 @@ const propertySchema = mongoose.Schema({
     timestamps: true
 })
 
-const PropertyModel = mongoose.model("property", propertySchema)
+const EquipmentModel = mongoose.model("equipment", equipmentSchema)
 
-module.exports = PropertyModel
+module.exports = EquipmentModel
