@@ -35,6 +35,6 @@ const adminRouter = require("./routes/admin.routes")
 app.use("/api/admin", adminRouter)
 
 const equipmentRouter = require("./routes/equipment.routes")
-app.use("/api/equipment", equipmentRouter)
+app.use("/api/equipments", equipmentRouter)
 
 module.exports = app

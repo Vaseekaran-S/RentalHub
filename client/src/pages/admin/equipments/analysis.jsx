@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getEquipment } from '../../../api/equipment';
+import { getEquipmentById } from '../../../api/equipment';
 import LoadingDiv from '../../../components/loading';
 import Card from '../../../components/cards/index';
 import PrimaryTable from '../../../components/table/primary';
@@ -25,7 +25,7 @@ function EquipmentAnalysis() {
 
   useEffect(() => {
     const fetchEquipment = async () => {
-      const equipmentData = await getEquipment(url);
+      const equipmentData = await getEquipmentById(url);
       setEquipment(equipmentData);
       setIsLoading(false);
     };
