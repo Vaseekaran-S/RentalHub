@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUser } from '../../api/users';
 import PrimaryButton from 'components/buttons/primary';
-import { getUserEmail } from 'utils/getData';
+import { deleteUser, getUserEmail } from 'utils/getData';
 
 function ProfilePage() {
   const [profileData, setProfileData] = useState({});
@@ -16,8 +16,7 @@ function ProfilePage() {
   }, [])
 
   const logOut = () => {
-    localStorage.removeItem("rentalhub-user")
-    localStorage.removeItem("rentalhub-user-email")
+    deleteUser();
     window.location.href = "/"
   }
 
