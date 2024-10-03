@@ -4,8 +4,10 @@ const EquipmentModel = require("../models/equipment.model");
 // Create a Equipment
 const createEquipment = async(req, res) => {
     try{
-        const { name, description, price, type, location } = req.body;
-        if(!name || !description || !price || !type || !location){
+        const { name, description, rate, category, location, admin } = req.body;
+        console.log(req.body);
+        
+        if(!name || !description || !rate || !category || !location || !admin){
             return res.json({ msg: "All data are Requiered" })
         }
         const response = await EquipmentModel.create({...req.body})
@@ -26,10 +28,23 @@ const getEquipments = async(req, res) => {
     }
 }
 
-// Get a Equipment
-const getEquipment = async(req, res) => {
+
+const getEquipmentByAdminMail = async(req, res) => {
+    try{
+        const { adminMail } = req.params;
+        const data = await EquipmentModel.find({  isDeleted: false })
+        res.json(data)
+    }catch(err){
+        res.json({ msg: "Server Error", error: err?.message })
+    }
+}
+
+// Get an Admin Equipment By Dynamic Url
+const getAdminEquipmentByUrl = async(req, res) => {
     try{
         const data = await EquipmentModel.findOne({ _id: req.params?.url, isDeleted: false })
+        console.log(data);
+        
         res.json(data)
     }catch(err){
         res.json({ msg: "Server Error", error: err?.message })
@@ -39,9 +54,8 @@ const getEquipment = async(req, res) => {
 // Get a Equipment By Dynamic Url
 const getEquipmentByUrl = async(req, res) => {
     try{
-        const data = await EquipmentModel.findOne({ url: req.params?.url, isDeleted: false }).select('name description image url location type price amenities map _id')
+        const data = await EquipmentModel.findOne({ url: req.params?.url, isDeleted: false }).select('name description image url location category rate amenities map _id')
         await EquipmentModel.updateOne({ url: req.params?.url, isDeleted: false }, { $inc: { impressions: 1 } } )
-        console.log(data);
         res.json(data)
     }catch(err){
         res.json({ msg: "Server Error", error: err?.message })
@@ -82,8 +96,9 @@ const deleteAllEquipment = async(req, res) => {
 
 module.exports = {
     createEquipment,
-    getEquipment,
     getEquipments,
+    getAdminEquipmentByUrl,
+    getEquipmentByAdminMail,
     deleteAllEquipment,
     softDeleteEquipment,
     updateEquipment,

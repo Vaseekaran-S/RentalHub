@@ -10,6 +10,10 @@ const propertySchema = mongoose.Schema({
         type: String,
         require: true
     },
+    admin: {
+        type: String,
+        require: true
+    },
     image: {
         type: String,
         require: true
@@ -22,11 +26,11 @@ const propertySchema = mongoose.Schema({
         type: String,
         require: true
     },
-    price: {
+    rate: {
         type: String,
         require: true
     },
-    type: {
+    category: {
         type: String,
         require: true
     },
