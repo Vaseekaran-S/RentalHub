@@ -3,19 +3,21 @@ const ScheduleModel = require('../models/schedule.model');
 
 // Create a new appointment
 const createAppointment = async (req, res) => {
-  const { propertyId, userEmail, scheduledDate } = req.body;
+  const { equipmentId, userEmail, userMobile, scheduledDate } = req.body;
 
   try {
-    const newSchedule = new ScheduleModel({ propertyId, userEmail, scheduledDate });
+    const newSchedule = new ScheduleModel({ equipmentId, userEmail, userMobile, scheduledDate });
     await newSchedule.save();
     res.status(201).json(newSchedule);
   } catch (error) {
+    console.log(error);
+    
     res.status(500).json({ message: 'Error scheduling appointment', error });
   }
 };
 
-// Get appointments by property URL
-const getAppointmentsByPropertyId = async (req, res) => {
+// Get appointments by Equipment Id
+const getAppointmentsByEquipmentId = async (req, res) => {
   try {
     const appointments = await ScheduleModel.find({ propertyId: req.params?.propertyId });
     res.json(appointments);
@@ -27,8 +29,8 @@ const getAppointmentsByPropertyId = async (req, res) => {
 // Get appointments by property URL
 const getAppointmentsByUserEmail = async (req, res) => {
   try {
-    console.log(req.params);
-    const appointments = await ScheduleModel.findOne({ propertyId: req.params?.propertyId, userEmail: req.params?.email });
+    const { equipmentId, email } = req.params;
+    const appointments = await ScheduleModel.findOne({ equipmentId: equipmentId, userEmail: email });
     res.json(appointments);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching appointments', error });
@@ -53,7 +55,7 @@ const updateAppointmentStatus = async (req, res) => {
 
 module.exports = {
   createAppointment,
-  getAppointmentsByPropertyId,
+  getAppointmentsByEquipmentId,
   updateAppointmentStatus,
   getAppointmentsByUserEmail
 };

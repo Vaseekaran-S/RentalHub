@@ -10,9 +10,9 @@ router.get("/", (req, res)=>{
 router.post('/', scheduleController.createAppointment);
 
 // Route to get appointments by property URL
-router.get('/:propertyId', scheduleController.getAppointmentsByPropertyId);
+router.get('/:equipmentId', scheduleController.getAppointmentsByEquipmentId);
 
-router.get('/:email/:propertyId', scheduleController.getAppointmentsByUserEmail);
+router.get('/:email/:equipmentId', scheduleController.getAppointmentsByUserEmail);
 
 // Route to update the status of an appointment
 router.patch('/:id', scheduleController.updateAppointmentStatus);

@@ -5,7 +5,7 @@ function PrimaryInput({ type, customCss, label, ...props }) {
     const isPassword = type === "password";
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    const inputType =  isPassword ? (isPasswordVisible? 'text':type ): type ;
+    const inputType =  isPassword ? (isPasswordVisible? 'text' : type ) : type ;
 
     return (
         <div className='w-full relative'>

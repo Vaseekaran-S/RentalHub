@@ -72,8 +72,8 @@ const getEquipmentsByAdminMail = async () => {
 // Get a Equipment by Id
 const getEquipmentById = async (_id) => {
     try {
-        const response = await axios.get(`/equipments/admin/${_id}`)
-        return response?.data
+        const { data } = await axios.get(`/equipments/admin/${_id}`)
+        return data
     } catch (err) {
         console.log(err);
         return "Network Error"

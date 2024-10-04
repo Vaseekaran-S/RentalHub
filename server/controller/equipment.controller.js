@@ -43,7 +43,8 @@ const getEquipmentsByAdminMail = async(req, res) => {
 const getEquipmentByMailAndUrl = async(req, res) => {
     try{
         const { adminMail, url } = req.params;
-        const data = await EquipmentModel.findOne({ admin: adminMail, url: url, isDeleted: false })
+        const data = await EquipmentModel.findOne({ admin: adminMail, url: url, isDeleted: false });
+        await EquipmentModel.updateOne({ admin: adminMail, url: url, isDeleted: false }, { $inc: { impressions: 1 } } );
         res.json(data)
     }catch(err){
         res.json({ msg: "Server Error", error: err?.message })
@@ -66,17 +67,6 @@ const getEquipmentsSizeByAdminMail = async(req, res) => {
 const getAdminEquipmentById = async(req, res) => {
     try{
         const data = await EquipmentModel.findOne({ _id: req.params?.id, isDeleted: false })
-        res.json(data)
-    }catch(err){
-        res.json({ msg: "Server Error", error: err?.message })
-    }
-}
-
-// Get a Equipment By Dynamic Url
-const getEquipmentByUrl = async(req, res) => {
-    try{
-        const data = await EquipmentModel.findOne({ url: req.params?.url, isDeleted: false }).select('name description image url location category rate amenities map _id')
-        await EquipmentModel.updateOne({ url: req.params?.url, isDeleted: false }, { $inc: { impressions: 1 } } )
         res.json(data)
     }catch(err){
         res.json({ msg: "Server Error", error: err?.message })
@@ -124,6 +114,5 @@ module.exports = {
     getEquipmentByMailAndUrl,
     deleteAllEquipment,
     softDeleteEquipment,
-    updateEquipment,
-    getEquipmentByUrl
+    updateEquipment
 }

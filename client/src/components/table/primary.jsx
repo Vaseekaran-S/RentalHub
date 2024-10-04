@@ -47,9 +47,7 @@ function PrimaryTable({ data, onEdit }) {
                         ])
                     }
                     {(!data?.length) ? <tr>
-                        <td>
                             <div className='text-center py-2 px-3 w-full'>No Schedule Listed</div>
-                        </td>
                     </tr> : ""}
                 </tbody>
             </table>

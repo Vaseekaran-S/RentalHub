@@ -8,7 +8,7 @@ import axios from '../../../api/axios';
 import Modal from '../../../components/modals/primary';
 
 function EquipmentAnalysis() {
-  const { url } = useParams();
+  const { url: _id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [equipment, setEquipment] = useState({
     name: "",
@@ -25,17 +25,17 @@ function EquipmentAnalysis() {
 
   useEffect(() => {
     const fetchEquipment = async () => {
-      const equipmentData = await getEquipmentById(url);
+      const equipmentData = await getEquipmentById(_id);
       setEquipment(equipmentData);
       setIsLoading(false);
     };
     fetchEquipment();
-  }, [url]);
+  }, [_id]);
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get(`/schedule/${url}`);
+        const response = await axios.get(`/schedule/${_id}`);
         console.log(response);
         setAppointments(response.data);
       } catch (error) {
@@ -43,7 +43,7 @@ function EquipmentAnalysis() {
       }
     };
     fetchAppointments();
-  }, [url]);
+  }, [_id]);
 
   const openModal = (appointment) => {
     setSelectedAppointment(appointment);
@@ -58,7 +58,7 @@ function EquipmentAnalysis() {
     try {
       await axios.patch(`/schedule/${selectedAppointment?._id}`, selectedAppointment);
       // Refresh appointments
-      const response = await axios.get(`/schedule/${url}`);
+      const response = await axios.get(`/schedule/${_id}`);
       setAppointments(response.data);
       closeModal();
     } catch (error) {
@@ -104,12 +104,12 @@ function EquipmentAnalysis() {
               </div>
               <div className="col-span-6">
                 <Card customCss="flex-center flex-col shadow-lg py-10">
-                  <h2 className='text-xl font-bold'>Properties Details</h2>
+                  <h2 className='text-xl font-bold'>Equipments Details</h2>
                   <div className='text-start mt-4'>
                     <p className='text-lg text-gray-600'><span className='font-bold'>Name</span>: {equipment?.name}</p>
-                    <p className='text-lg text-gray-600'><span className='font-bold'>Type</span>: {equipment?.type}</p>
+                    <p className='text-lg text-gray-600 capitalize'><span className='font-bold'>Category</span>: {equipment?.category}</p>
                     <p className='text-lg text-gray-600'><span className='font-bold'>Location</span>: {equipment?.location}</p>
-                    <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{equipment?.price}</p>
+                    <p className='text-lg text-gray-600'><span className='font-bold'>Rate</span>: Rs.{equipment?.rate}</p>
                     <p className='text-lg text-gray-600'><span className='font-bold'>Impressions</span>: {equipment?.impressions}</p>
                     <p className='text-lg text-gray-600'><span className='font-bold'>Schedules</span>: {appointments?.length || 0}</p>
                   </div>

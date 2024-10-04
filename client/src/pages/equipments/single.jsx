@@ -17,28 +17,29 @@ function EquipmentSingle() {
   const [isLoading, setIsLoading] = useState(true);
   const [isDataFetched, setIsDataFetched] = useState(false);
 
-  const [userEmail, setUserEmail] = useState('');
+  const [userMobile, setUserMobile] = useState('');
   const [scheduledDate, setScheduledDate] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/schedule', { equipmentId: equipment?._id, userEmail, scheduledDate });
       setIsLoading(true)
+      const email = getUserEmail();
+      const response = await axios.post('/schedule', { equipmentId: equipment?._id, userEmail: email, userMobile, scheduledDate });
       setScheduledDate(response || {})
+      setIsLoading(false)
     } catch (error) {
-      console.error('Error scheduling appointment:', error);
+      console.error('Error scheduling rent:', error);
     }
   };
-  
+
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
       try {
         const email = getUserEmail();
         const data = await getEquipmentByUrl(admin, url);
-        console.log(data);
-        
+
         const scheduleData = await getScheduleDataForClient(email, data?._id);
         if (isMounted) {
           setEquipment(data || {});
@@ -87,14 +88,14 @@ function EquipmentSingle() {
                 <h2 className='text-xl font-bold'>Properties Details</h2>
                 <div className='text-start mt-2'>
                   <p className='text-lg text-gray-600'><span className='font-bold'>Name</span>: {equipment?.name}</p>
-                  <p className='text-lg text-gray-600'><span className='font-bold'>Category</span>: {equipment?.category}</p>
+                  <p className='text-lg text-gray-600 capitalize'><span className='font-bold'>Category</span>: {equipment?.category}</p>
                   <p className='text-lg text-gray-600'><span className='font-bold'>Location</span>: {equipment?.location}</p>
                   <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{equipment?.rate}/hour</p>
                 </div>
               </div>
               <div className='w-full max-w-[700px] py-10'>
                 <h2 className='text-xl font-bold mb-5'>Specifications</h2>
-                { equipment?.specifications.length < 1 && <p>No Specifications Added</p> }
+                {equipment?.specifications.length < 1 && <p>No Specifications Added</p>}
                 <div className="grid grid-cols-12 gap-5">
                   {equipment?.specifications.map(specification => [
                     <div className="col-span-4" key={specification}>
@@ -108,9 +109,11 @@ function EquipmentSingle() {
             </div>
             <div className="grid grid:grid-logs-6 md:grid-cols-12 gap-5">
               <div className="col-span-6">
-                <div className='rounded border shadow'>
-                  <iframe title='Map' src={equipment?.map} className='h-[300px] w-full'></iframe>
-                  <h6 className='text-lg font-bold my-3'>Propety Map</h6>
+                <div className='rounded border shadow p-4'>
+                  <h6 className='text-lg font-bold mb-3'>Store Map</h6>
+                  {equipment?.map ?
+                    <iframe title='Map' src={equipment?.map} className='h-[300px] w-full'>
+                    </iframe> : "Not Available"}
                 </div>
               </div>
               <div className="col-span-6 text-start">
@@ -118,14 +121,14 @@ function EquipmentSingle() {
                   {scheduledDate?.status ?
                     <div>
                       <h3 className='text-lg font-bold mb-5'>Appointment Status</h3>
-                      <p className='mb-2'>Current Status: <span className={`px-2 ml-2 capitalize font-medium py-1 bg-orange-400 rounded ${scheduledDate?.status==='confirmed' && 'bg-green-500'} ${scheduledDate?.status==='cancelled' && 'bg-red-500'}`}>{scheduledDate?.status}</span> </p>
+                      <p className='mb-2'>Current Status: <span className={`px-2 ml-2 capitalize font-medium py-1 bg-orange-400 rounded ${scheduledDate?.status === 'confirmed' && 'bg-green-500'} ${scheduledDate?.status === 'cancelled' && 'bg-red-500'}`}>{scheduledDate?.status}</span> </p>
                       <p className='mb-2'>Date: {scheduledDate?.scheduledDate?.split("T")[0]}</p>
                       <p>Time: {scheduledDate?.scheduledDate?.split("T")[1].replace(".000Z", "")}</p>
                     </div>
                     :
                     <form onSubmit={handleSubmit}>
-                      <h3 className='text-lg font-bold mb-5'>Schedule an Appointment</h3>
-                      <PrimaryInput onChange={e => setUserEmail(e.target.value)} label="Your Email Id" type="email" customCss="mb-4" placeholder="Enter Email Id" required={true} />
+                      <h3 className='text-lg font-bold mb-5'>Schedule a Rent</h3>
+                      <PrimaryInput onChange={e => setUserMobile(e.target.value)} label="Your Mobile Number" type="number" customCss="mb-4" placeholder="Enter Mobile Number" required={true} />
                       <PrimaryInput onChange={e => setScheduledDate(e.target.value)} label="Date and Time" type="datetime-local" required={true} />
                       <PrimaryBtn text="Submit" customCss="mt-5" />
                     </form>
