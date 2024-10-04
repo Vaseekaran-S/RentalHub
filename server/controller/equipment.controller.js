@@ -27,15 +27,29 @@ const getEquipments = async(req, res) => {
 }
 
 
-const getEquipmentByAdminMail = async(req, res) => {
+// Get all equipments of an admin
+const getEquipmentsByAdminMail = async(req, res) => {
     try{
         const { adminMail } = req.params;
-        const data = await EquipmentModel.find({  isDeleted: false })
+        const data = await EquipmentModel.find({ admin: adminMail, isDeleted: false })
         res.json(data)
     }catch(err){
         res.json({ msg: "Server Error", error: err?.message })
     }
 }
+
+
+// Get equipment by admin mail and url
+const getEquipmentByMailAndUrl = async(req, res) => {
+    try{
+        const { adminMail, url } = req.params;
+        const data = await EquipmentModel.findOne({ admin: adminMail, url: url, isDeleted: false })
+        res.json(data)
+    }catch(err){
+        res.json({ msg: "Server Error", error: err?.message })
+    }
+}
+
 
 // Get equipments size
 const getEquipmentsSizeByAdminMail = async(req, res) => {
@@ -106,7 +120,8 @@ module.exports = {
     getEquipments,
     getEquipmentsSizeByAdminMail,
     getAdminEquipmentById,
-    getEquipmentByAdminMail,
+    getEquipmentsByAdminMail,
+    getEquipmentByMailAndUrl,
     deleteAllEquipment,
     softDeleteEquipment,
     updateEquipment,
