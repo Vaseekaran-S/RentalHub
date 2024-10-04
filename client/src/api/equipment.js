@@ -44,8 +44,20 @@ const getEquipmentsSize = async() => {
     }
 }
 
-// Get all Equipments by admin mail
+// Get Equipments for client
 const getEquipments = async () => {
+    try {
+        const { data } = await axios.get(`/equipments`)
+        if (data?.error) return []
+        return data || [];
+    } catch (err) {
+        console.log(err);
+        return "Network Error"
+    }
+}
+
+// Get all Equipments by admin mail
+const getEquipmentsByAdminMail = async () => {
     try {
         const adminMail = getAdminEmail();
         const { data } = await axios.get(`/equipments/${adminMail}`)
@@ -106,6 +118,7 @@ export {
     getEquipmentById,
     getEquipmentByUrl,
     getEquipmentsSize,
+    getEquipmentsByAdminMail,
     getEquipments,
     updateEquipment,
     deleteEquipment

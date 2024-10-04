@@ -17,12 +17,14 @@ const equipmentsTypes = [
   { label: 'Event Equipment', value: 'event-equipment' }
 ]
 
-const equipmentsLocations = [
-  { label: "Chennai", value: "Chennai" },
-  { label: "Trichy", value: "Trichy" },
-  { label: "Coimbatore", value: "Coimbatore" },
-  { label: "Madurai", value: "Madurai" },
-  { label: "Thanjavur", value: "Thanjavur" }
+const locations = [
+  { label: 'Chennai', value: 'Chennai' },
+  { label: 'Trichy', value: 'Trichy' },
+  { label: 'Coimbatore', value: 'Coimbatore' },
+  { label: 'Madurai', value: 'Madurai' },
+  { label: 'Thanjavur', value: 'Thanjavur' },
+  { label: 'Salem', value: 'Salem' },
+  { label: 'Erode', value: 'Erode' }
 ]
 
 const filterEquipments = (equipments, filters) => {
@@ -108,7 +110,7 @@ function Equipments() {
               <PrimaryInputSelect label="By Type" name="category" options={equipmentsTypes} value={filters?.category} onChange={handleFilterChange} />
             </PrimaryCard>
             <PrimaryCard customCss="mt-4 bg-gray-200">
-              <PrimaryInputSelect label="By Location" name="location" value={filters?.location} options={equipmentsLocations} onChange={handleFilterChange} />
+              <PrimaryInputSelect label="By Location" name="location" value={filters?.location} options={locations} onChange={handleFilterChange} />
             </PrimaryCard>
             <PrimaryCard customCss="mt-4 bg-gray-200">
               <PriceRangeFilter minPrice={1} maxPrice={1000} onFilterChange={handlePriceFilterChange} isFilterCleared={isFilterCleared} />

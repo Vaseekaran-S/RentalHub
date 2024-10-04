@@ -16,6 +16,17 @@ const options = [
     { label: 'Event Equipment', value: 'event-equipment' }
   ]
 
+const locations = [
+    { label: 'Select Location', value: '' },
+    { label: 'Chennai', value: 'Chennai' },
+    { label: 'Trichy', value: 'Trichy' },
+    { label: 'Coimbatore', value: 'Coimbatore' },
+    { label: 'Madurai', value: 'Madurai' },
+    { label: 'Thanjavur', value: 'Thanjavur' },
+    { label: 'Salem', value: 'Salem' },
+    { label: 'Erode', value: 'Erode' }
+  ]
+
 function EquipmentsFormik({ initialValues, validationSchema, selectImage, formSubmit, isEditPage }) {
     return (
         <div>
@@ -30,7 +41,7 @@ function EquipmentsFormik({ initialValues, validationSchema, selectImage, formSu
                                     <p className='font-medium'>Existing Equipment Image:</p>
                                     <img src={initialValues?.image} alt="Equipment" className='my-2 max-w-[300px] rounded max-h-[200px]' />
                         </> }
-                        <FormikField name="location" label="Store Location" type="text" placeholder="Enter Store Location" />
+                        <FormikSelect options={locations} name="location" label="Store Location" />
                         <FormikField name="map" label="Store Map" type="text" placeholder="Map Url" />
                         <FormikField name="description" label="Equipment Description" type="text" placeholder="Enter Equipment Description" />
                         <div>

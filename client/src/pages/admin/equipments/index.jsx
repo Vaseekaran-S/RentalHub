@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getEquipments } from '../../../api/equipment';
+import { getEquipmentsByAdminMail } from '../../../api/equipment';
 import AdminEquipmentCard from '../../../components/admin/equipment/card';
 import PrimaryLink from '../../../components/links/primary';
 
@@ -8,7 +8,7 @@ function AdminEquipments() {
 
     useEffect(() => {
         const fetchEquipment = async () => {
-            const equipmentsData = await getEquipments();
+            const equipmentsData = await getEquipmentsByAdminMail();
             setEquipments(equipmentsData || []);
         }
         fetchEquipment()

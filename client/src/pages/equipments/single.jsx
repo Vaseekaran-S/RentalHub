@@ -58,7 +58,7 @@ function EquipmentSingle() {
     return () => {
       isMounted = false;
     };
-  }, [url]);
+  }, [admin, url]);
 
   return (
     <div>
