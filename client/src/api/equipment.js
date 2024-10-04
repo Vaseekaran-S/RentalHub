@@ -47,7 +47,7 @@ const getEquipmentsSize = async() => {
 // Get all Equipments by admin mail
 const getEquipments = async () => {
     try {
-        const adminMail = getAdminEmail()
+        const adminMail = getAdminEmail();
         const { data } = await axios.get(`/equipments/${adminMail}`)
         if (data?.error) return []
         return data || [];
@@ -70,11 +70,10 @@ const getEquipmentById = async (_id) => {
 
 
 // Get a Equipment By Url For Client
-const getEquipmentByUrl = async (url, token) => {
+const getEquipmentByUrl = async (adminMail, url) => {
     try {
-        const response = await axios.get(`/equipments/url/${url}`)
-        console.log(response);
-        return response?.data
+        const { data } = await axios.get(`/equipments/${adminMail}/${url}`);
+        return data || {}
     } catch (err) {
         alert("Network Error")
         return {}

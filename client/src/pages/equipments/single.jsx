@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { getEquipmentByUrl } from '../../api/equipment';
 import LoadingDiv from '../../components/loading';
 import { Link, useParams } from 'react-router-dom';
 import PrimaryCard from '../../components/cards';
 import PrimaryInput from '../../components/inputs/primary';
 import PrimaryBtn from '../../components/buttons/primary';
 
+import { getEquipmentByUrl } from '../../api/equipment';
 import axios from '../../api/axios';
 import { getScheduleDataForClient } from '../../api/schedule';
 import { getUserEmail } from 'utils/getData';
 
 function EquipmentSingle() {
-  const { url } = useParams();
+  const { admin, url } = useParams();
 
   const [equipment, setEquipment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -30,15 +30,15 @@ function EquipmentSingle() {
       console.error('Error scheduling appointment:', error);
     }
   };
-
   
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
       try {
         const email = getUserEmail();
-        const token = localStorage.getItem('rentalhub-user');
-        const data = await getEquipmentByUrl(url, token);
+        const data = await getEquipmentByUrl(admin, url);
+        console.log(data);
+        
         const scheduleData = await getScheduleDataForClient(email, data?._id);
         if (isMounted) {
           setEquipment(data || {});
@@ -56,7 +56,7 @@ function EquipmentSingle() {
 
     fetchData();
     return () => {
-      isMounted = false; // cleanup to set the flag to false on unmount
+      isMounted = false;
     };
   }, [url]);
 
@@ -87,18 +87,19 @@ function EquipmentSingle() {
                 <h2 className='text-xl font-bold'>Properties Details</h2>
                 <div className='text-start mt-2'>
                   <p className='text-lg text-gray-600'><span className='font-bold'>Name</span>: {equipment?.name}</p>
-                  <p className='text-lg text-gray-600'><span className='font-bold'>Type</span>: {equipment?.type}</p>
+                  <p className='text-lg text-gray-600'><span className='font-bold'>Category</span>: {equipment?.category}</p>
                   <p className='text-lg text-gray-600'><span className='font-bold'>Location</span>: {equipment?.location}</p>
-                  <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{equipment?.price}</p>
+                  <p className='text-lg text-gray-600'><span className='font-bold'>Price</span>: Rs.{equipment?.rate}/hour</p>
                 </div>
               </div>
               <div className='w-full max-w-[700px] py-10'>
-                <h2 className='text-xl font-bold mb-5'>Amenities</h2>
+                <h2 className='text-xl font-bold mb-5'>Specifications</h2>
+                { equipment?.specifications.length < 1 && <p>No Specifications Added</p> }
                 <div className="grid grid-cols-12 gap-5">
-                  {equipment?.amenities.map(amenity => [
-                    <div className="col-span-4" key={amenity}>
+                  {equipment?.specifications.map(specification => [
+                    <div className="col-span-4" key={specification}>
                       <div className="border px-3 py-2 font-bold text-green-900 rounded hover:bg-gray-100">
-                        {amenity}
+                        {specification}
                       </div>
                     </div>
                   ])}

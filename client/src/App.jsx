@@ -61,7 +61,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/equipments" element={<Equipments />} />
                 <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/equipments/:url" element={<EquipmentSingle />} />
+                <Route path="/equipments/:admin/:url" element={<EquipmentSingle />} />
                 <Route path="/admin" element={<AdminProfile setIsAdmin={false} />} />
                 <Route path="/admin-login" element={<AdminLogin setIsAdmin={setIsAdmin} />} />
               </>
