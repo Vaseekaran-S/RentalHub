@@ -7,7 +7,8 @@ const mongoose = require("mongoose")
 
 app.use(cors({
     origin: 'https://rental--hub.vercel.app',
-    credentials: true,
+    methods: 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+    credentials: true
 }));
 
 app.use(bodyParser.json())
