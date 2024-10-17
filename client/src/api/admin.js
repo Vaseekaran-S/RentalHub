@@ -25,6 +25,7 @@ const adminLogin = async (email, password) => {
         alert(data?.msg)
         return data || {}
     } catch (err) {
+        alert("Network Error!")
         return {}
     }
 }

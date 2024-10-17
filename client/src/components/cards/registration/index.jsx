@@ -63,8 +63,10 @@ export default function RegistrationForm({ type }) {
                 localStorage.setItem("rentalhub-user", responce?.token)
                 localStorage.setItem("rentalhub-user-email", responce?.email)
                 window.location.href = "/"
+                alert(responce?.msg)
+            }else{
+                alert("Network Error!")
             }
-            alert(responce?.msg)
         } catch (err) {
             console.log(err);
             alert(err?.message)

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = process.env.BACKEND_API || "http://localhost:3001/api/";
+const baseURL = process.env.BACKEND_API || "https://api-rental-hub.vercel.app/api/";
 const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 let instance = axios.create({
