@@ -6,6 +6,11 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose")
 
 app.use(cors());
+app.use(cors({
+    origin: 'https://rental--hub.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone'],
+  }));
 
 app.use(bodyParser.json())
 app.use(express.json())
