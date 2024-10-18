@@ -5,7 +5,11 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose")
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone']
+  }));
 
 app.use(bodyParser.json())
 app.use(express.json())
@@ -46,5 +50,7 @@ app.use("/api/admin", adminRouter)
 
 const equipmentRouter = require("./routes/equipment.routes")
 app.use("/api/equipments", equipmentRouter)
+
+app.options('*', cors());
 
 module.exports = app
