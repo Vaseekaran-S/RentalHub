@@ -8,7 +8,7 @@ const mongoose = require("mongoose")
 const corsOptions = {
     origin: 'https://rental--hub.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone']
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone', 'Access-Control-Allow-Origin']
 };
 app.use(cors(corsOptions));
 
