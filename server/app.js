@@ -5,11 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 // CORS Middleware
-app.use(cors({
-    origin: '*',  // Allow all origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone']  // Allowed headers
-}));
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(express.json());
@@ -44,8 +40,5 @@ app.use("/api/admin", adminRouter);
 
 const equipmentRouter = require("./routes/equipment.routes");
 app.use("/api/equipments", equipmentRouter);
-
-// CORS for preflight requests
-app.options('*', cors());  // Handle preflight requests
 
 module.exports = app;
