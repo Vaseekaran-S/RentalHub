@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose")
 
+app.use(cors());
 app.use(cors({
     origin: ['https://rental--hub.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
