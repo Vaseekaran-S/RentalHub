@@ -1,56 +1,51 @@
-
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
+// CORS Middleware
 app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone']
-  }));
+    origin: '*',  // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone']  // Allowed headers
+}));
 
-app.use(bodyParser.json())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "*",
-        "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
-    });
-    next();
-});
-
+// Default route to test if the server is running
 app.get("/", (req, res) => {
     res.send("Hi");
-})
+});
 
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_KEY)
     .then(() => {
-        console.log("MongoDb Connected!");
+        console.log("MongoDB Connected!");
     })
     .catch(error => {
-        console.log("MongoDb Not Connected! ", error.message);
-    })
+        console.log("MongoDB Not Connected! ", error.message);
+    });
 
-const scheduleRouter = require("./routes/schedule.routes")
-app.use("/api/schedule", scheduleRouter)
+// Import and use routes
+const scheduleRouter = require("./routes/schedule.routes");
+app.use("/api/schedule", scheduleRouter);
 
-const userRouter = require("./routes/users.routes")
-app.use("/api/users", userRouter)
+const userRouter = require("./routes/users.routes");
+app.use("/api/users", userRouter);
 
-const uploadRouter = require("./routes/upload.routes")
-app.use("/api/upload", uploadRouter)
+const uploadRouter = require("./routes/upload.routes");
+app.use("/api/upload", uploadRouter);
 
-const adminRouter = require("./routes/admin.routes")
-app.use("/api/admin", adminRouter)
+const adminRouter = require("./routes/admin.routes");
+app.use("/api/admin", adminRouter);
 
-const equipmentRouter = require("./routes/equipment.routes")
-app.use("/api/equipments", equipmentRouter)
+const equipmentRouter = require("./routes/equipment.routes");
+app.use("/api/equipments", equipmentRouter);
 
-app.options('*', cors());
+// CORS for preflight requests
+app.options('*', cors());  // Handle preflight requests
 
-module.exports = app
+module.exports = app;
