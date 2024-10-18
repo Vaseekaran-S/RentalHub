@@ -5,28 +5,29 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose")
 
-app.use(cors());
-app.use(cors({
-    origin: ['https://rental--hub.vercel.app'],
+const corsOptions = {
+    origin: 'https://rental--hub.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-user-timezone']
-  }));
+};
+app.use(cors(corsOptions));
+
 
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.get("/", (req, res)=>{
+app.get("/", (req, res) => {
     res.send("Hi");
 })
 
 mongoose.connect(process.env.MONGODB_KEY)
-.then(()=>{
-    console.log("MongoDb Connected!");
-})
-.catch(error=>{
-    console.log("MongoDb Not Connected! ", error.message);
-})
+    .then(() => {
+        console.log("MongoDb Connected!");
+    })
+    .catch(error => {
+        console.log("MongoDb Not Connected! ", error.message);
+    })
 
 const scheduleRouter = require("./routes/schedule.routes")
 app.use("/api/schedule", scheduleRouter)
